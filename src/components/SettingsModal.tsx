@@ -15,20 +15,20 @@ interface SettingsModalProps {
 const displayModeOptions = [
   {
     id: "pinyin-word" as const,
-    title: "拼音和汉字",
-    description: "同时显示拼音和汉字",
+    title: "拼音和汉字 Pinyin and Word",
+    description: "同时显示拼音和汉字 Display both the Pinyin and the Word",
     example: "nǐ hǎo / 你好"
   },
   {
     id: "pinyin-only" as const,
-    title: "仅拼音",
-    description: "仅显示拼音",
+    title: "仅拼音 Only Pinyin",
+    description: "仅显示拼音 Only show the Pinyin",
     example: "nǐ hǎo"
   },
   {
     id: "word-only" as const,
-    title: "仅汉字",
-    description: "仅显示汉字",
+    title: "仅汉字 Only Word",
+    description: "仅显示汉字 Only show the Word",
     example: "你好"
   }
 ];
@@ -40,7 +40,6 @@ export function SettingsModal({ isOpen, onClose, displayMode, onDisplayModeChang
 
   const displayModeContent = (
     <div className="settings-modal-display-mode-section">
-      <div className="settings-modal-display-mode-title">Display Mode</div>
       <div className="settings-modal-display-mode-options">
         {displayModeOptions.map((option) => (
           <Card
@@ -73,8 +72,8 @@ export function SettingsModal({ isOpen, onClose, displayMode, onDisplayModeChang
     <ResponsiveDialogOrDrawer
       isOpen={isOpen}
       onClose={onClose}
-      title="设置"
-      description="自定义学习会话中汉字显示方式。"
+      title="设置 Settings"
+      description="自定义学习会话中汉字显示方式。Change the appearance of the word in the Study session."
       actions={
         <Button onClick={onClose} appearance="primary">
           完成
