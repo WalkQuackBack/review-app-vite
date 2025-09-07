@@ -16,7 +16,7 @@
   position: relative;
   border: 1px solid transparent;
 
-  transition: opacity 75ms;
+  transition: opacity 150ms;
   
   /* Focus outline */
   &:focus-visible {
