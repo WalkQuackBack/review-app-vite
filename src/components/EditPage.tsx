@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
-import { ArrowLeft, Plus, Edit2, Trash2 } from "lucide-react";
+import { ArrowLeft, Plus, Edit2, Trash2, Check } from "lucide-react";
 // import "../styles/EditPage.css";
 import { Page } from "./ui/Page";
 
@@ -50,11 +50,6 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
       updatedWords[editingIndex] = editValue.trim();
       onUpdateWords(updatedWords);
     }
-    setEditingIndex(null);
-    setEditValue("");
-  };
-
-  const handleCancelEdit = () => {
     setEditingIndex(null);
     setEditValue("");
   };
@@ -160,18 +155,15 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
 
       {/* Add New Word */}
       <div className="edit-page-add-word-section">
-        <div className="flex-gap-2">
-          <Input
-            placeholder="添加新词..."
-            value={newWord}
-            onChange={(e) => setNewWord(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleAddWord()}
-            className="flex-1"
-          />
-          <Button onClick={handleAddWord} disabled={!newWord.trim()} appearance="primary">
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
+        <Input
+          placeholder="添加新词..."
+          value={newWord}
+          onChange={(e) => setNewWord(e.target.value)}
+          onKeyUp={(e) => e.key === 'Enter' && handleAddWord()}
+        />
+        <Button onClick={handleAddWord} disabled={!newWord.trim()} appearance="primary">
+          <Plus className="h-4 w-4" />
+        </Button>
       </div>
 
       {/* Words List */}
@@ -207,17 +199,12 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                         ref={inputRef}
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}
-                        onKeyPress={(e) => {
+                        onKeyUp={(e) => {
                           if (e.key === 'Enter') handleSaveEdit();
-                          if (e.key === 'Escape') handleCancelEdit();
                         }}
-                        className="flex-1"
                       />
                       <Button onClick={handleSaveEdit} appearance="primary" className="edit-page-word-item-action-button">
-                        保存
-                      </Button>
-                      <Button onClick={handleCancelEdit} appearance="outlined" className="edit-page-word-item-action-button">
-                        取消
+                        <Check />
                       </Button>
                     </div>
                   ) : (

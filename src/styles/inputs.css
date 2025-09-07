@@ -2,7 +2,7 @@
   background-color: var(--gm3-sys-color-surface-container-highest);
   color: var(--gm3-sys-color-on-surface);
   border: 1px solid var(--gm3-sys-color-outline);
-  border-radius: 0.25rem; /* Adjust as needed */
+  border-radius: 0.5rem; /* Adjust as needed */
   padding: 0.625rem 1rem; /* Adjust as needed */
   font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
   font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
