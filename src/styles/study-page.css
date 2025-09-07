@@ -32,16 +32,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Hide overflowing cards */
+  overflow: hidden;
   position: relative;
   touch-action: none;
   mask: linear-gradient(
     90deg,
-    transparent,
+    rgb(0 0 0 / 0.5),
     black calc(0% + 5vw),
     black calc(100% - 5vw),
-    transparent
+    rgb(0 0 0 / 0.5)
   );
+  width: calc(100% + 2rem);
   max-width: 1000px;
   flex-grow: 1;
   min-height: 0;
@@ -67,25 +68,28 @@
   text-align: center;
   padding: 3rem 5lvw;
   box-sizing: border-box;
-  .card {
-    background-color: var(--gm3-sys-color-surface-container-high);
-    border-radius: 2rem;
-  }
+}
+
+.study-page-word-card {
+  background-color: var(--gm3-sys-color-surface-container-high);
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
   .card-content {
-    padding: 2rem 1rem;
+    padding: 1rem;
   }
 }
 
 .study-page-word-text {
   font-size: calc(4rem + 1.5vw);
-  line-height: 1;
+  line-height: calc(6rem + 1.5vw);
   overflow: hidden;
 }
 
 .study-page-play-button {
   width: 100%;
   max-width: 600px;
-  height: 128px;
+  height: 96px;
   min-height: 64px;
   display: flex;
   align-items: center;
@@ -111,23 +115,14 @@
   align-items: center;
   width: 100%;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .study-page-nav-button {
   flex-grow: 1;
-  height: 64px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-}
-
-
-@media (max-height: 680px) {
-  .study-page-play-button {
-    height: 96px;
-  }
-  .study-page-nav-button {
-    height: 48px;
-  }
 }
