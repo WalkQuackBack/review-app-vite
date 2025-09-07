@@ -9,19 +9,36 @@
 
 .responsive-drawer-content {
   background-color: var(--gm3-sys-color-surface);
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  max-height: 90dvh;
   color: var(--gm3-sys-color-on-surface);
 }
 
+.responsive-drawer-handle {
+  margin-inline: auto;
+  width: 48px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  background-color: var(--gm3-sys-color-outline-variant);
+}
+
+.responsive-drawer-container {
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  padding: 1rem 2rem;
+  flex: 1;
+}
 
 .responsive-drawer-title {
   font-family: var(--gm3-sys-typography-type-scale--title-l-font-name);
@@ -42,17 +59,11 @@
   color: var(--gm3-sys-color-on-surface-variant);
 }
 
-.responsive-drawer-body {
-  flex-grow: 1;
-  margin-bottom: 1rem;
-}
-
 .responsive-drawer-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--gm3-sys-color-outline-variant);
+  margin-block: 1rem;
 }
 
 /* Dialog (Desktop) Styles */

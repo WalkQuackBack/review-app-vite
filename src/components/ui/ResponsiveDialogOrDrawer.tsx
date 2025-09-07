@@ -46,18 +46,18 @@ export function ResponsiveDialogOrDrawer({
         <Drawer.Portal>
           <Drawer.Overlay className="responsive-drawer-overlay" />
           <Drawer.Content className="responsive-drawer-content">
-            <Drawer.Handle className="responsive-drawer-handle" />
-            <div className="responsive-drawer-header">
-              <Drawer.Title className="responsive-drawer-title title-l">{title}</Drawer.Title>
-              <Drawer.Description className="responsive-drawer-description body-m">
+            <div className="responsive-drawer-container">
+              <div aria-hidden className="responsive-drawer-handle" />
+              <Drawer.Title className="responsive-drawer-title">{title}</Drawer.Title>
+              <Drawer.Description className="responsive-drawer-description">
                 {description}
               </Drawer.Description>
-            </div>
-            <div className="responsive-drawer-body">
-              {children}
-            </div>
-            <div className="responsive-drawer-actions">
-              {actions}
+              <div className="responsive-drawer-body">
+                {children}
+              </div>
+              <div className="responsive-drawer-actions">
+                {actions}
+              </div>
             </div>
           </Drawer.Content>
         </Drawer.Portal>

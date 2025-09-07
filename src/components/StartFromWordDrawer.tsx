@@ -44,7 +44,7 @@ export function StartFromWordDrawer({ isOpen, onClose, words, onSelectWord }: St
       title="从词开始"
       description="选择一个词开始学习。"
       actions={
-        <Button onClick={onClose} appearance="text">
+        <Button onClick={onClose} appearance="primary">
           取消
         </Button>
       }
