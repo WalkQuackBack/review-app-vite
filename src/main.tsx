@@ -13,7 +13,6 @@ import './styles/settings-modal.css';
 import './styles/start-from-word-drawer.css';
 import './styles/study-page.css';
 import App from './App.tsx'
-import process from 'node:process';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
