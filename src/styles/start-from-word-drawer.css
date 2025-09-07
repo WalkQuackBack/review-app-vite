@@ -16,13 +16,14 @@
 
 .start-from-word-drawer-list-item {
     flex-shrink: 0;
+    max-width: 100%;
 }
 
 .start-from-word-drawer-list-item-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: .5rem;
   color: var(--gm3-sys-color-on-surface);
   font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
   font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
