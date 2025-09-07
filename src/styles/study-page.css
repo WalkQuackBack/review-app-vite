@@ -76,6 +76,8 @@
 .study-page-word-text {
   font-size: calc(5rem + 2vw);
   line-height: 1;
+  max-height: 50dvh;
+  overflow: hidden;
 }
 
 .study-page-play-button {
