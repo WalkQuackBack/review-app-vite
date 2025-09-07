@@ -1,0 +1,47 @@
+/* StartFromWordDrawer.css */
+
+.start-from-word-drawer-list-container {
+  max-height: 60vh; /* Limit height for scrollability */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* For scrollbar */
+
+  gap: .5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.space-y-2 > *:not(:last-child) {
+  margin-bottom: 0.5rem; /* Equivalent to space-y-2 in Tailwind */
+}
+
+.start-from-word-drawer-list-item {
+    flex-shrink: 0;
+}
+
+.start-from-word-drawer-list-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--gm3-sys-color-on-surface);
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
+}
+
+.start-from-word-drawer-list-item-index {
+  color: var(--gm3-sys-color-on-surface-variant);
+  font-family: var(--gm3-sys-typography-type-scale--label-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--label-m-font-size);
+}
+
+.start-from-word-drawer-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  color: var(--gm3-sys-color-on-surface-variant);
+  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
+}

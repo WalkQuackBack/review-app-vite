@@ -1,0 +1,117 @@
+/* StudyPage.css */
+
+.study-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.study-page-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.study-page-header-text {
+  flex-grow: 1;
+  text-align: right;
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.study-page-word-display {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden; /* Hide overflowing cards */
+  position: relative;
+  touch-action: none;
+  mask: linear-gradient(
+    90deg,
+    transparent,
+    black calc(0% + 5vw),
+    black calc(100% - 5vw),
+    transparent
+  );
+  max-width: 1000px;
+}
+
+.study-page-carousel-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  will-change: transform; /* Optimize for animation */
+}
+
+.study-page-word-card-container {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  .card {
+    background-color: var(--gm3-sys-color-surface-container-high);
+  }
+  .card-content {
+    padding: 2rem 1rem;
+  }
+}
+
+.study-page-word-text {
+  font-size: calc(5rem + 2vw);
+  line-height: 1;
+}
+
+.study-page-play-button {
+  width: 80dvw;
+  max-width: 600px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  border-radius: 64px;
+  margin-bottom: 1rem;
+
+  transition: border-radius 100ms;
+  &.square {
+    border-radius: 16px;
+  }
+}
+
+.study-page-navigation-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.study-page-nav-button {
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.study-page-word-count {
+  color: var(--gm3-sys-color-on-surface);
+  font-family: var(--gm3-sys-typography-type-scale--title-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--title-l-font-size);
+}

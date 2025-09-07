@@ -1,0 +1,121 @@
+/* Responsive Dialog/Drawer Styles */
+
+/* Drawer (Mobile) Styles */
+.responsive-drawer-overlay {
+  background-color: rgba(0 0 0 / 0.6);
+  position: fixed;
+  inset: 0;
+}
+
+.responsive-drawer-content {
+  background-color: var(--gm3-sys-color-surface);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  color: var(--gm3-sys-color-on-surface);
+}
+
+
+.responsive-drawer-title {
+  font-family: var(--gm3-sys-typography-type-scale--title-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--title-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--title-l-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--title-l-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--title-l-font-tracking);
+  color: var(--gm3-sys-color-on-surface);
+  margin-bottom: 0.5rem;
+}
+
+.responsive-drawer-description {
+  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-m-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--body-m-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--body-m-font-tracking);
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.responsive-drawer-body {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.responsive-drawer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gm3-sys-color-outline-variant);
+}
+
+/* Dialog (Desktop) Styles */
+.responsive-dialog-content {
+  background-color: var(--gm3-sys-color-surface);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: max-content;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: var(--gm3-sys-color-on-surface);
+  border: none; /* Remove default dialog border */
+  
+  position: fixed;
+  inset: 0;
+
+  animation: fade-in 200ms;
+}
+
+.responsive-dialog-content::backdrop {
+  background-color: var(--gm3-sys-color-scrim);
+  opacity: 0.6; /* Adjust opacity as needed */
+}
+
+.responsive-dialog-header {
+  margin-bottom: 1rem;
+}
+
+.responsive-dialog-title {
+  font-family: var(--gm3-sys-typography-type-scale--headline-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--headline-m-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--headline-m-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--headline-m-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--headline-m-font-tracking);
+  color: var(--gm3-sys-color-on-surface);
+  margin-bottom: 0.5rem;
+}
+
+.responsive-dialog-description {
+  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-m-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--body-m-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--body-m-font-tracking);
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.responsive-dialog-body {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.responsive-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gm3-sys-color-outline-variant);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}

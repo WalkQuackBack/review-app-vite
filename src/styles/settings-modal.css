@@ -1,0 +1,76 @@
+/* SettingsModal.css */
+
+.settings-modal-display-mode-section {
+  margin-top: 1rem;
+}
+
+.settings-modal-display-mode-options {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.settings-modal-display-mode-title {
+  font-family: var(--gm3-sys-typography-type-scale--title-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--title-m-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--title-m-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--title-m-line-height);
+  color: var(--gm3-sys-color-on-surface);
+  margin-bottom: 1rem;
+}
+
+.settings-modal-option-card.selected {
+  border-color: var(--gm3-sys-color-primary);
+  background-color: var(--gm3-sys-color-primary-container);
+}
+
+.settings-modal-option-card.selected .settings-modal-option-title,
+.settings-modal-option-card.selected .settings-modal-option-description,
+.settings-modal-option-card.selected .settings-modal-option-example {
+  color: var(--gm3-sys-color-on-primary-container);
+}
+
+.settings-modal-option-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-modal-option-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-modal-option-title {
+  font-family: var(--gm3-sys-typography-type-scale--label-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--label-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--label-l-font-weight);
+  color: var(--gm3-sys-color-on-surface);
+}
+
+.settings-modal-option-check-icon {
+  color: var(--gm3-sys-color-primary);
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.settings-modal-option-card.selected .settings-modal-option-check-icon {
+  color: var(--gm3-sys-color-on-primary-container);
+}
+
+.settings-modal-option-description {
+  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-m-font-weight);
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.settings-modal-option-example {
+  font-family: var(--gm3-sys-typography-type-scale--body-m-alt-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-m-alt-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-m-alt-font-weight);
+  color: var(--gm3-sys-color-on-surface);
+  padding: 0.5rem;
+  background-color: var(--gm3-sys-color-surface-container);
+  border-radius: 0.25rem;
+}

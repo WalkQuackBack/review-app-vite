@@ -1,0 +1,44 @@
+.card {
+  background-color: var(--gm3-sys-color-surface-container);
+  border-radius: .5rem; /* Example border-radius, adjust as needed */
+  position: relative;
+  overflow: hidden;
+  color: inherit;
+}
+
+/* State layers for interactable cards (when rendered as a button) */
+.card[data-interactable="true"] {
+  border: none; /* Remove default button border */
+  padding: 0; /* Remove default button padding */
+  text-align: left; /* Align content to left */
+}
+
+.card[data-interactable="true"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: currentColor; /* Use current text color for overlay */
+  opacity: 0;
+  transition: opacity 75ms;
+  pointer-events: none;
+}
+
+.card[data-interactable="true"]:hover::before {
+  opacity: 0.08
+}
+
+.card[data-interactable="true"]:active::before {
+  opacity: 0.2
+}
+
+.card[data-interactable="true"]:focus-visible {
+  outline: 3px solid var(--gm3-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+.card-content {
+  padding: 1rem; /* Example padding, adjust as needed */
+}

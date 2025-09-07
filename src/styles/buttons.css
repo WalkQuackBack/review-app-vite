@@ -1,0 +1,97 @@
+.button {
+  /* Base button styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem .75rem; /* 10px 24px */
+  border-radius: 100px; /* Fully rounded edges for M3 buttons */
+  font-family: var(--gm3-sys-typography-type-scale--label-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--label-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--label-l-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--label-l-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--label-l-font-tracking);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+/* Focus outline */
+.button:focus-visible {
+  outline: 3px solid var(--gm3-sys-color-secondary);
+  outline-offset: 2px;
+}
+
+/* State layers */
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: currentColor; /* Use current text color for overlay */
+  opacity: 0;
+  transition: opacity 75ms;
+}
+
+.button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.button:not(:disabled) {
+  &:hover::before {
+    opacity: 0.08
+  }
+
+  &:active::before {
+    opacity: 0.2
+  }
+}
+
+/* Button appearance variations */
+
+/* Primary Button */
+.button[data-appearance="primary"] {
+  background-color: var(--gm3-sys-color-primary);
+  color: var(--gm3-sys-color-on-primary);
+}
+
+/* Inverse Surface Button */
+.button[data-appearance="inverse-surface"] {
+  background-color: var(--gm3-sys-color-inverse-surface);
+  color: var(--gm3-sys-color-inverse-on-surface); /* Assuming on-primary is suitable */
+}
+
+/* Secondary Button */
+.button[data-appearance="secondary"] {
+  background-color: var(--gm3-sys-color-secondary);
+  color: var(--gm3-sys-color-on-secondary);
+}
+
+/* Tertiary Button */
+.button[data-appearance="tertiary"] {
+  background-color: var(--gm3-sys-color-tertiary);
+  color: var(--gm3-sys-color-on-tertiary);
+}
+
+/* Outlined Button */
+.button[data-appearance="outlined"] {
+  background-color: transparent;
+  color: var(--gm3-sys-color-primary); /* Or outline color */
+  border: 1px solid var(--gm3-sys-color-outline);
+}
+
+/* Tonal Button */
+.button[data-appearance="tonal"] {
+  background-color: var(--gm3-sys-color-secondary-container);
+  color: var(--gm3-sys-color-on-secondary-container);
+}
+
+/* Text Button */
+.button[data-appearance="text"] {
+  background-color: transparent;
+  color: var(--gm3-sys-color-primary); /* Or on-surface color */
+}

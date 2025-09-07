@@ -1,0 +1,7 @@
+.page {
+  background-color: var(--gm3-sys-color-background);
+  color: var(--gm3-sys-color-on-background);
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  padding: 1rem; /* Basic padding for content */
+  box-sizing: border-box; /* Include padding in element's total width and height */
+}

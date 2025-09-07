@@ -1,0 +1,20 @@
+.input {
+  background-color: var(--gm3-sys-color-surface-container-highest);
+  color: var(--gm3-sys-color-on-surface);
+  border: 1px solid var(--gm3-sys-color-outline);
+  border-radius: 0.25rem; /* Adjust as needed */
+  padding: 0.625rem 1rem; /* Adjust as needed */
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
+  line-height: var(--gm3-sys-typography-type-scale--body-l-line-height);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--gm3-sys-color-primary);
+  box-shadow: 0 0 0 1px var(--gm3-sys-color-primary);
+}
+
+.input::placeholder {
+  color: var(--gm3-sys-color-on-surface-variant);
+}

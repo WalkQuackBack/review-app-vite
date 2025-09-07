@@ -1,0 +1,166 @@
+/* EditPage.css */
+
+.edit-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 96px;
+
+  & > * {
+    width: 100%;
+  }
+}
+
+.edit-page-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gm3-sys-color-outline-variant);
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  inset-inline: 0;
+  background-color: var(--gm3-sys-color-surface-container);
+}
+
+.edit-page-header h2 {
+  flex-grow: 1;
+  color: var(--gm3-sys-color-on-surface);
+  min-width: 0;
+}
+
+.edit-page-header span {
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.edit-page-add-word-section {
+  padding: .5rem 0;
+  position: sticky;
+}
+
+.flex-gap-2 {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.edit-page-word-list-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-width: 800px;
+}
+
+.edit-page-no-words {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  border: 1px dashed var(--gm3-sys-color-outline);
+  border-radius: 0.5rem;
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.edit-page-no-words-text {
+  text-align: center;
+}
+
+.edit-page-word-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  overflow-x: hidden;
+}
+
+.edit-page-word-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--gm3-sys-color-surface-container-low);
+  border-radius: 0.5rem;
+  overflow: hidden; /* Keep overflow hidden */
+
+  touch-action: pan-y;
+
+  height: 64px;
+}
+
+.edit-page-word-item .card-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%; /* Ensure content takes full width for swipe */
+  padding: 0.5rem;
+}
+
+.edit-page-word-item-editing {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-grow: 1;
+}
+
+.edit-page-word-item-action-button {
+  min-width: 48px; /* Material 3 touch target size */
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-page-word-item-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding-inline-start: .5rem;
+}
+
+.edit-page-word-item-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-page-swipe-indicator-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px; /* Adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  z-index: 2; /* Behind the card content */
+}
+
+.edit-page-swipe-indicator-overlay.left {
+  left: 0;
+  background-color: var(--gm3-sys-color-primary);
+  color: var(--gm3-sys-color-on-primary);
+}
+
+.edit-page-swipe-indicator-overlay.right {
+  right: 0;
+  background-color: var(--gm3-sys-color-error);
+  color: var(--gm3-sys-color-on-error);
+}
+
+.edit-page-instructions {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gm3-sys-color-outline-variant);
+  color: var(--gm3-sys-color-on-surface-variant);
+}
+
+.delete-Button {
+  background-color: var(--gm3-sys-color-error-container);
+  color: var(--gm3-sys-color-on-error-container)
+}
