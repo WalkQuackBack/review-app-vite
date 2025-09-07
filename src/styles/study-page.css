@@ -101,7 +101,7 @@
 
   flex-shrink: 0;
 
-  transition: border-radius 100ms;
+  transition: border-radius cubic-bezier(0.38, 1.21, 0.22, 1.00) 500ms;
   &.playing {
     background-color: var(--gm3-sys-color-error);
     color: var(--gm3-sys-color-on-error);
