@@ -152,9 +152,9 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
         <Button onClick={onBack} appearance="elevated" className="study-page-back-button">
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h2 className="title-l">编辑词汇列表</h2>
+        <h2 className="title-l">编辑词汇列表 Change the words</h2>
         <span className="body-m">
-          {words.length} 词
+          {words.length} 词 / {words.length} Words
         </span>
       </div>
 
