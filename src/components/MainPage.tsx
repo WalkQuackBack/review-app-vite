@@ -16,7 +16,7 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings 
       {/* Settings button */}
       <Button
         onClick={onSettings}
-        appearance="tonal"
+        appearance="outlined"
         className="settings-button"
       >
         <Settings className="h-5 w-5" />
@@ -31,7 +31,7 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings 
         <div className="main-page-secondary-buttons">
           <Button
             onClick={onStartFromWord}
-            appearance="outlined"
+            appearance="tonal"
           >
             从词开始
           </Button>

@@ -149,7 +149,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
     <Page className="edit-page-container">
       {/* Header */}
       <div className="edit-page-header">
-        <Button onClick={onBack} appearance="outlined" className="edit-page-word-item-action-button">
+        <Button onClick={onBack} appearance="elevated" className="study-page-back-button">
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <h2 className="title-l">编辑词汇列表</h2>
@@ -268,13 +268,6 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
             ))}
           </div>
         )}
-      </div>
-
-      {/* Instructions */}
-      <div className="edit-page-instructions">
-        <p className="body-m">
-          向右滑动编辑 • 向左滑动删除
-        </p>
       </div>
     </Page>
   );

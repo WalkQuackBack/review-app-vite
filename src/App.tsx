@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { MainPage } from "./components/MainPage";
 import { StudyPage } from "./components/StudyPage";
@@ -8,7 +8,23 @@ import { SettingsModal } from "./components/SettingsModal";
 import type { DisplayMode } from "./components/SettingsModal";
 
 export default function App() {
-  const [words, setWords] = useState<string[]>([]);
+  const [words, setWords] = useState<string[]>(() => {
+    try {
+      const storedWords = localStorage.getItem("wordList");
+      return storedWords ? JSON.parse(storedWords) : [];
+    } catch (error) {
+      console.error("Failed to parse stored word list:", error);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("wordList", JSON.stringify(words));
+    } catch (error) {
+      console.error("Failed to save word list to local storage:", error);
+    }
+  }, [words]);
   const [studyStartIndex, setStudyStartIndex] = useState(0);
   const [showStartFromWordDrawer, setShowStartFromWordDrawer] = useState(false);
   const [showSettings, setShowSettings] = useState(false);

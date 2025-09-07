@@ -18,12 +18,11 @@
   padding: 1rem;
   gap: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid var(--gm3-sys-color-outline-variant);
   position: fixed;
   z-index: 5;
   top: 0;
   inset-inline: 0;
-  background-color: var(--gm3-sys-color-surface-container);
+  background-color: var(--gm3-sys-color-surface-container-low);
 }
 
 .edit-page-header h2 {
@@ -139,6 +138,7 @@
   justify-content: center;
   font-size: 2rem;
   z-index: 2; /* Behind the card content */
+  border-radius: inherit;;
 }
 
 .edit-page-swipe-indicator-overlay.left {

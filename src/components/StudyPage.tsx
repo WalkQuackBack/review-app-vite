@@ -2,7 +2,7 @@ import { pinyin } from 'pinyin-pro';
 import { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
-import { Play, Pause, SkipForward, SkipBack, ArrowLeft } from "lucide-react";
+import { Play, Square, SkipForward, SkipBack, ArrowLeft } from "lucide-react";
 import type { DisplayMode } from "./SettingsModal";
 import { Page } from "./ui/Page";
 
@@ -151,13 +151,11 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
     <Page className="study-page-container">
       {/* Header */}
       <div className="study-page-header">
-        <Button onClick={onBack} appearance="outlined" className="study-page-nav-button">
+        <Button onClick={onBack} appearance="elevated" className="study-page-back-button">
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div className="study-page-header-text">
-          <span className="body-m">
-            {currentIndex + 1} of {words.length}
-          </span>
+          {currentIndex + 1} of {words.length}
         </div>
       </div>
 
@@ -199,12 +197,12 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
       <Button
         onClick={isPlaying ? stopSpeaking : speakWord}
         appearance="primary"
-        className={"study-page-play-button " + (isPlaying ? 'square' : '')}
+        className={"study-page-play-button " + (isPlaying ? 'playing' : '')}
         
         disabled={!speechSupported}
       >
         {isPlaying ? (
-          <Pause className="h-6 w-6" />
+          <Square className="h-6 w-6" />
         ) : (
           <Play className="h-6 w-6 ml-1" />
         )}
@@ -220,10 +218,6 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
         >
           <SkipBack className="h-5 w-5" />
         </Button>
-        
-        <div className="study-page-word-count">
-          {currentIndex + 1} / {words.length}
-        </div>
         
         <Button
           onClick={nextWord}

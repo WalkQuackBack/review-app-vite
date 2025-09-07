@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  appearance?: "primary" | "inverse-surface" | "secondary" | "tertiary" | "outlined" | "tonal" | "text" | "none";
+  appearance?: "primary" | "inverse-surface" | "elevated" | "secondary" | "tertiary" | "outlined" | "tonal" | "text" | "none";
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
