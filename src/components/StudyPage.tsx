@@ -200,11 +200,10 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
 
       <Button
         onClick={isPlaying ? stopSpeaking : speakWord}
-        disabled={isLoading}
         appearance="primary"
         className={"study-page-play-button " + (isPlaying ? 'playing' : '')}
         
-        disabled={!speechSupported}
+        disabled={!speechSupported || isLoading}
       >
         {isPlaying ? (
           <Square className="h-6 w-6" />
