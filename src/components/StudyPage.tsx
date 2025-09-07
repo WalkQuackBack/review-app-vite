@@ -21,6 +21,7 @@ interface SwipeState {
 
 export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyPageProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speechSupported, setSpeechSupported] = useState(false);
   const [swipeState, setSwipeState] = useState<SwipeState | null>(null);
@@ -48,20 +49,23 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
     }
   };
 
-  
-
   const speakWord = () => {
     if (!speechSupported || !currentWord) return;
     
     // Stop any ongoing speech
     window.speechSynthesis.cancel();
+
+    setIsLoading(true);
     
     const utterance = new SpeechSynthesisUtterance(currentWord);
     utterance.rate = 0.8;
     utterance.volume = 1;
     utterance.lang = 'zh-CN';
     
-    utterance.onstart = () => setIsPlaying(true);
+    utterance.onstart = () => {
+      setIsPlaying(true);
+      setIsLoading(false);
+    };
     utterance.onend = () => setIsPlaying(false);
     utterance.onerror = () => setIsPlaying(false);
     
@@ -105,7 +109,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
 
     const deltaX = swipeState.currentX - swipeState.startX;
     const cardWidth = carouselRef.current.offsetWidth; // Assuming all cards have the same width as the container
-    const swipeThreshold = cardWidth * 0.2; // Swipe 20% of card width to trigger navigation
+    const swipeThreshold = cardWidth * 0.1; // Swipe 10% of card width to trigger navigation
 
     if (Math.abs(deltaX) > swipeThreshold) {
       if (deltaX < 0) { // Swiped left
@@ -196,6 +200,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
 
       <Button
         onClick={isPlaying ? stopSpeaking : speakWord}
+        disabled={isLoading}
         appearance="primary"
         className={"study-page-play-button " + (isPlaying ? 'playing' : '')}
         
