@@ -170,7 +170,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
           className="study-page-carousel-container"
           style={{
             transform: getCarouselTransform(),
-            transition: swipeState?.isDragging ? 'none' : 'transform 0.3s ease',
+            transition: swipeState?.isDragging ? 'none' : 'transform 650ms cubic-bezier(0.39, 1.29, 0.35, 0.98)',
           }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
