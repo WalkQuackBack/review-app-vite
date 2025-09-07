@@ -67,6 +67,7 @@
   box-sizing: border-box;
   .card {
     background-color: var(--gm3-sys-color-surface-container-high);
+    border-radius: 2rem;
   }
   .card-content {
     padding: 2rem 1rem;
