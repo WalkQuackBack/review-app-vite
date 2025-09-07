@@ -23,8 +23,8 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings 
       </Button>
 
       <div className="main-page-header">
-        <h1 className="display-s">测试复习</h1>
-        <p className="body-m">通过语音朗读练习您的词汇</p>
+        <h1 className="display-s">测试复习 Test Review</h1>
+        <p className="body-m">通过语音朗读练习您的词汇 Practice Test through Text to Speech</p>
       </div>
       
       <div className="main-page-actions">
@@ -33,14 +33,14 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings 
             onClick={onStartFromWord}
             appearance="tonal"
           >
-            从词开始
+            从词开始 Start Originating from Word
           </Button>
           
           <Button
             onClick={onEditWordList}
             appearance="outlined"
           >
-            编辑词汇列表
+            编辑词汇列表 Change the Words
           </Button>
         </div>
         <Button
@@ -48,7 +48,7 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings 
           appearance="primary"
           className="main-page-start-button"
         >
-          开始
+          开始 Start
         </Button>
       </div>
     </Page>
