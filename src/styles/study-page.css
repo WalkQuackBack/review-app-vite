@@ -101,11 +101,20 @@
 
   flex-shrink: 0;
 
-  transition: border-radius cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms, opacity cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms;
+  transition:
+    border-radius cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms,
+    scale cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms,
+    opacity cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms,
+    background cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms,
+    color cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms;
   &.playing {
     background-color: var(--gm3-sys-color-error);
     color: var(--gm3-sys-color-on-error);
     border-radius: 16px;
+  }
+  &.loading {
+    scale: 0.95;
+    opacity: 0.75;
   }
 }
 
