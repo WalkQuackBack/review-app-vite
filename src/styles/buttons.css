@@ -107,4 +107,9 @@
     background-color: transparent;
     color: var(--gm3-sys-color-primary); /* Or on-surface color */
   }
+
+  &[data-appearance="destructive"] {
+    background-color: var(--gm3-sys-color-error-container);
+    color: var(--gm3-sys-color-on-error-container)
+  }
 }

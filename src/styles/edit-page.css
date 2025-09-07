@@ -22,6 +22,8 @@
   z-index: 5;
   top: 0;
   inset-inline: 0;
+  height: 78px;
+  text-wrap: nowrap;
   background-color: var(--gm3-sys-color-surface-container-low);
 }
 
@@ -29,6 +31,8 @@
   flex-grow: 1;
   color: var(--gm3-sys-color-on-surface);
   min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .edit-page-header span {
@@ -37,17 +41,12 @@
 
 .edit-page-add-word-section {
   padding: .5rem 0;
-  position: sticky;
-}
-
-.flex-gap-2 {
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.flex-1 {
-  flex: 1;
+  gap: 1rem;
+  input {
+    
+    flex-grow: 1;
+  }
 }
 
 .edit-page-word-list-container {
@@ -83,12 +82,13 @@
   display: flex;
   align-items: center;
   background-color: var(--gm3-sys-color-surface-container-low);
-  border-radius: 0.5rem;
-  overflow: hidden; /* Keep overflow hidden */
+  border-radius: 1rem;
 
   touch-action: pan-y;
 
   height: 64px;
+
+  overflow: visible;
 }
 
 .edit-page-word-item .card-content {
@@ -103,8 +103,12 @@
 .edit-page-word-item-editing {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: .5rem;
   flex-grow: 1;
+  input {
+    flex-grow: 1;
+    background-color: transparent;
+  }
 }
 
 .edit-page-word-item-action-button {
@@ -142,15 +146,17 @@
 }
 
 .edit-page-swipe-indicator-overlay.left {
-  left: 0;
+  left: -12px;
   background-color: var(--gm3-sys-color-primary);
   color: var(--gm3-sys-color-on-primary);
+  transform: translateX(-100%);
 }
 
 .edit-page-swipe-indicator-overlay.right {
-  right: 0;
+  right: -12px;
   background-color: var(--gm3-sys-color-error);
   color: var(--gm3-sys-color-on-error);
+  transform: translateX(100%);
 }
 
 .edit-page-instructions {
@@ -158,9 +164,4 @@
   padding-top: 1rem;
   border-top: 1px solid var(--gm3-sys-color-outline-variant);
   color: var(--gm3-sys-color-on-surface-variant);
-}
-
-.delete-Button {
-  background-color: var(--gm3-sys-color-error-container);
-  color: var(--gm3-sys-color-on-error-container)
 }

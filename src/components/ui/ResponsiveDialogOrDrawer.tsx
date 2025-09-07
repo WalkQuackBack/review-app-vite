@@ -6,7 +6,7 @@ interface ResponsiveDialogOrDrawerProps {
   onClose: () => void;
   title: string;
   description: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   actions: React.ReactNode;
 }
 

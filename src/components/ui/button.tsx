@@ -1,7 +1,9 @@
 import * as React from "react";
 
+export type ButtonAppearance = "primary" | "inverse-surface" | "elevated" | "secondary" | "tertiary" | "outlined" | "tonal" | "text" | "destructive" | "none";;
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  appearance?: "primary" | "inverse-surface" | "elevated" | "secondary" | "tertiary" | "outlined" | "tonal" | "text" | "none";
+  appearance?: ButtonAppearance
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

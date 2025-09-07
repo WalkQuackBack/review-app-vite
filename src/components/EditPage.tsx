@@ -5,6 +5,7 @@ import { Card, CardContent } from "./ui/card";
 import { ArrowLeft, Plus, Edit2, Trash2, Check } from "lucide-react";
 // import "../styles/EditPage.css";
 import { Page } from "./ui/Page";
+import { Alert } from "./ui/alert";
 
 interface EditPageProps {
   words: string[];
@@ -19,9 +20,10 @@ interface SwipeState {
   currentX: number;
   currentY: number;
   isDragging: boolean;
-  isScrolling: boolean;
+  isVerticalScroll: boolean; // New property to track vertical scroll
   dragThreshold: number;
-  itemWidth: number;
+  verticalThreshold: number;
+  startTime: number;
 }
 
 export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
@@ -30,6 +32,24 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
   const [swipeState, setSwipeState] = useState<SwipeState | null>(null);
   const [newWord, setNewWord] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const [wordToDelete, setWordToDelete] = useState(0);
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+
+  const [isDeletAllOpen, setIsDeletAllOpen] = useState(false);
+
+  const handleDeleteConfirmYes = () => {
+    setIsDeleteConfirmOpen(false);
+    const updatedWords = words.filter((_, i) => i !== wordToDelete);
+    onUpdateWords(updatedWords);
+  };
+  const handleDeleteConfirmCancel = () => setIsDeleteConfirmOpen(false);
+
+  const handleIsDeletAllYes = () => {
+    setIsDeleteConfirmOpen(false);
+    onUpdateWords([])
+  };
+  const handleIsDeletAllCancel = () => setIsDeleteConfirmOpen(false);
 
   const handleAddWord = () => {
     if (newWord.trim()) {
@@ -55,8 +75,8 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
   };
 
   const handleDeleteWord = (index: number) => {
-    const updatedWords = words.filter((_, i) => i !== index);
-    onUpdateWords(updatedWords);
+    setWordToDelete(index)
+    setIsDeleteConfirmOpen(true)
   };
 
   // Touch event handlers for swipe gestures
@@ -64,8 +84,8 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
     if (editingIndex !== null) return;
 
     const touch = e.touches[0];
-    const itemElement = e.currentTarget as HTMLElement; // Get the element that triggered the event
-    const itemWidth = itemElement.offsetWidth; // Get its width
+    const itemElement = e.currentTarget as HTMLElement;
+    const itemWidth = itemElement.offsetWidth;
 
     setSwipeState({
       index,
@@ -74,50 +94,63 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
       currentX: touch.clientX,
       currentY: touch.clientY,
       isDragging: false,
-      isScrolling: false,
-      dragThreshold: itemWidth * 0.1, // Calculate dragThreshold here
-      itemWidth: itemWidth, // Store itemWidth
+      isVerticalScroll: false,
+      dragThreshold: itemWidth * 0.25,
+      verticalThreshold: 10, // Define a vertical threshold
+      startTime: Date.now(),
     });
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!swipeState || editingIndex !== null) return;
+    if (!swipeState || editingIndex !== null || swipeState.isVerticalScroll) return;
     
     const touch = e.touches[0];
     const newCurrentX = touch.clientX;
     const newCurrentY = touch.clientY;
-
     const deltaX = Math.abs(newCurrentX - swipeState.startX);
     const deltaY = Math.abs(newCurrentY - swipeState.startY);
 
-    // Determine if it's a scroll
-    if (swipeState.isScrolling || (deltaY > deltaX && deltaY > 10)) {
-      setSwipeState({ ...swipeState, isScrolling: true });
-      return;
+    const timeElapsed = Date.now() - swipeState.startTime;
+
+    const isPastTimeThreshold = timeElapsed > 1000;
+    const isHorizontalDrag = deltaX > deltaY;
+
+    // Check if the gesture is a dominant vertical scroll
+    if (!swipeState.isDragging && !isHorizontalDrag && deltaY > swipeState.verticalThreshold) {
+      setSwipeState((prevState) => {
+        if (prevState) {
+          return {
+            ...prevState,
+            isVerticalScroll: true, // Mark this gesture as a vertical scroll
+          };
+        }
+        return null;
+      });
+      return; // Exit early
     }
 
-    // Only start dragging (visual feedback) if horizontal movement exceeds threshold
-    const shouldStartDragging = deltaX > swipeState.dragThreshold;
-
-    setSwipeState({
-      ...swipeState,
-      currentX: newCurrentX,
-      currentY: newCurrentY,
-      isDragging: shouldStartDragging,
-    });
+    // Continue the drag if the time threshold has been passed
+    // or if the initial drag was horizontal
+    if (isHorizontalDrag || isPastTimeThreshold) {
+      setSwipeState((prevState) => {
+        if (prevState) {
+          return {
+            ...prevState,
+            currentX: newCurrentX,
+            currentY: newCurrentY,
+            isDragging: true,
+          };
+        }
+        return null;
+      });
+    }
   };
 
   const handleTouchEnd = () => {
     if (!swipeState || editingIndex !== null) return;
 
-    // If it was determined to be a scroll, reset and do nothing
-    if (swipeState.isScrolling) {
-      setSwipeState(null);
-      return;
-    }
-
     const deltaX = swipeState.currentX - swipeState.startX;
-    const actionThreshold = swipeState.itemWidth * 0.1; // 10% of card width for action activation
+    const actionThreshold = swipeState.dragThreshold;
 
     if (Math.abs(deltaX) > actionThreshold) {
       if (deltaX > 0) {
@@ -136,8 +169,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
     }
     
     const deltaX = swipeState.currentX - swipeState.startX;
-    const clampedDelta = Math.max(-150, Math.min(150, deltaX));
-    return `translateX(${clampedDelta}px)`;
+    return `translateX(${deltaX}px)`;
   };
 
   return (
@@ -184,7 +216,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                 className="edit-page-word-item"
                 style={{
                   transform: getSwipeTransform(index),
-                  transition: swipeState?.index === index && swipeState.isDragging ? 'none' : 'transform 0.1s ease, opacity 75ms ease',
+                  transition: swipeState?.index === index && swipeState.isDragging ? 'none' : 'transform 350ms cubic-bezier(0.27, 1.06, 0.18, 1.00), opacity 75ms ease',
                 }}
               >
                 <CardContent
@@ -213,14 +245,14 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                       <div className="edit-page-word-item-actions">
                         <Button
                           onClick={() => handleStartEdit(index)}
-                          appearance="outlined"
+                          appearance="tonal"
                           className="edit-page-word-item-action-button"
                         >
                           <Edit2 className="h-3 w-3" />
                         </Button>
                         <Button
                           onClick={() => handleDeleteWord(index)}
-                          appearance="none"
+                          appearance="destructive"
                           className="edit-page-word-item-action-button delete-Button"
                         >
                           <Trash2 className="h-3 w-3" />
@@ -236,7 +268,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                     { (swipeState.currentX - swipeState.startX) > 0 && (
                       <div
                         className="edit-page-swipe-indicator-overlay left"
-                        style={{ width: `${Math.abs(swipeState.currentX - swipeState.startX)}px` }}
+                        style={{ width: `${Math.abs(swipeState.currentX - swipeState.startX - 12)}px` }}
                       >
                         <Edit2 className="h-4 w-4" />
                       </div>
@@ -244,7 +276,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                     { (swipeState.currentX - swipeState.startX) < 0 && (
                       <div
                         className="edit-page-swipe-indicator-overlay right"
-                        style={{ width: `${Math.abs(swipeState.currentX - swipeState.startX)}px` }}
+                        style={{ width: `${Math.abs(swipeState.startX - swipeState.currentX - 12)}px` }}
                       >
                         <Trash2 className="h-4 w-4" />
                       </div>
@@ -255,7 +287,32 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
             ))}
           </div>
         )}
+        <Button
+          appearance="destructive"
+          onClick={() => setIsDeletAllOpen(true)}>
+          全部删除
+          </Button>
       </div>
+      <Alert
+        isOpen={isDeleteConfirmOpen}
+        onClose={() => setIsDeleteConfirmOpen(false)}
+        title="你确定要删除吗？"
+        body="你不能撤销此操作。"
+        actions={[
+          { text: '取消', appearance: 'text', callback: handleDeleteConfirmCancel },
+          { text: '要', appearance: 'primary', callback: handleDeleteConfirmYes }
+        ]}
+      />
+    <Alert
+        isOpen={isDeletAllOpen}
+        onClose={() => setIsDeletAllOpen(false)}
+        title="你确定要全部删除吗？"
+        body="你不能撤销此操作。"
+        actions={[
+          { text: '取消', appearance: 'text', callback: handleIsDeletAllCancel },
+          { text: '要', appearance: 'primary', callback: handleIsDeletAllYes }
+        ]}
+      />
     </Page>
   );
 }

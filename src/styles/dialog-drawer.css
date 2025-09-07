@@ -62,7 +62,7 @@
 .responsive-drawer-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: .5rem;
   margin-block: 1rem;
 }
 
@@ -120,9 +120,8 @@
 .responsive-dialog-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: .5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--gm3-sys-color-outline-variant);
 }
 
 @keyframes fade-in {
