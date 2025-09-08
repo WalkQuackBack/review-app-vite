@@ -9,28 +9,32 @@
 }
 
 .responsive-drawer-content {
-  background-color: var(--gm3-sys-color-surface);
-  border-top-left-radius: 2rem;
-  border-top-right-radius: 2rem;
+  background-color: var(--gm3-sys-color-surface-container-low);
+  border-top-left-radius: 1.75rem;
+  border-top-right-radius: 1.75rem;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   display: flex;
   flex-direction: column;
+  max-width: 640px;
   max-height: 90dvh;
   color: var(--gm3-sys-color-on-surface);
   z-index: 950;
+
+  margin-inline: auto;
 }
 
 .responsive-drawer-handle {
   margin-inline: auto;
-  width: 48px;
-  height: 6px;
+  width: 32px;
+  height: 4px;
   flex-shrink: 0;
   border-radius: 3px;
-  margin-bottom: 1rem;
-  background-color: var(--gm3-sys-color-outline-variant);
+  margin-block: 1.375rem;
+  background-color: var(--gm3-sys-color-on-surface-variant);
+  opacity: 0.4;
 }
 
 .responsive-drawer-container {
@@ -38,26 +42,25 @@
   flex-direction: column;
 
   overflow-y: auto;
-  padding: 1rem 2rem;
+  padding: 0 1.5rem;
   flex: 1;
 }
 
 .responsive-drawer-title {
-  font-family: var(--gm3-sys-typography-type-scale--title-l-font-name);
-  font-size: var(--gm3-sys-typography-type-scale--title-l-font-size);
-  font-weight: var(--gm3-sys-typography-type-scale--title-l-font-weight);
-  line-height: var(--gm3-sys-typography-type-scale--title-l-line-height);
-  letter-spacing: var(--gm3-sys-typography-type-scale--title-l-font-tracking);
+  font-family: var(--gm3-sys-typography-type-scale--headline-m-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--headline-m-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--headline-m-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--headline-m-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--headline-m-font-tracking);
   color: var(--gm3-sys-color-on-surface);
-  margin-bottom: 0.5rem;
 }
 
 .responsive-drawer-description {
-  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
-  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
-  font-weight: var(--gm3-sys-typography-type-scale--body-m-font-weight);
-  line-height: var(--gm3-sys-typography-type-scale--body-m-line-height);
-  letter-spacing: var(--gm3-sys-typography-type-scale--body-m-font-tracking);
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-l-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--body-l-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--body-l-font-tracking);
   color: var(--gm3-sys-color-on-surface-variant);
 }
 
@@ -65,7 +68,7 @@
   display: flex;
   justify-content: flex-end;
   gap: .5rem;
-  margin-block: 1rem;
+  margin-block: 1rem 1.375rem;
 }
 
 /* Dialog (Desktop) Styles */
@@ -74,7 +77,7 @@
   border-radius: 1rem;
   padding: 1.5rem;
   width: max-content;
-  max-width: 90vw;
+  max-width: 560px;
   max-height: 90vh;
   overflow-y: auto;
   color: var(--gm3-sys-color-on-surface);
@@ -85,7 +88,7 @@
 
   z-index: 950;
 
-  animation: fade-in 200ms;
+  animation: dialog-in 500ms cubic-bezier(.27, 1.06, 0.18, 1.00);
 }
 
 .responsive-dialog-content::backdrop {
@@ -108,11 +111,11 @@
 }
 
 .responsive-dialog-description {
-  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
-  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
-  font-weight: var(--gm3-sys-typography-type-scale--body-m-font-weight);
-  line-height: var(--gm3-sys-typography-type-scale--body-m-line-height);
-  letter-spacing: var(--gm3-sys-typography-type-scale--body-m-font-tracking);
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-l-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--body-l-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--body-l-font-tracking);
   color: var(--gm3-sys-color-on-surface-variant);
 }
 
@@ -128,8 +131,9 @@
   padding-top: 1rem;
 }
 
-@keyframes fade-in {
+@keyframes dialog-in {
   from {
     opacity: 0;
+    scale: 0.8;
   }
 }

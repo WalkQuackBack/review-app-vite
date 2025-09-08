@@ -41,19 +41,19 @@ export function StartFromWordDrawer({ isOpen, onClose, words, onSelectWord }: St
     <ResponsiveDialogOrDrawer
       isOpen={isOpen}
       onClose={onClose}
-      title="从词开始"
-      description="选择一个词开始学习。"
+      title="Start from word"
+      description="Choose a word to start playback from."
       actions={
         <Button onClick={onClose} appearance="primary">
-          取消
+          OK
         </Button>
       }
     >
       {words.length === 0 ? (
         <div className="flex-1 flex items-center justify-center">
           <div className="start-from-word-drawer-empty-state">
-            <p>暂无可用词汇</p>
-            <p>请先添加词汇以开始学习</p>
+            <p>No words</p>
+            <p>Please add words to start learning</p>
           </div>
         </div>
       ) : (

@@ -15,20 +15,20 @@ interface SettingsModalProps {
 const displayModeOptions = [
   {
     id: "pinyin-word" as const,
-    title: "拼音和汉字 Pinyin and Word",
-    description: "同时显示拼音和汉字 Display both the Pinyin and the Word",
+    title: "Pinyin and Word",
+    description: "Display both Pinyin and Word",
     example: "nǐ hǎo / 你好"
   },
   {
     id: "pinyin-only" as const,
-    title: "仅拼音 Only Pinyin",
-    description: "仅显示拼音 Only show the Pinyin",
+    title: "Only Pinyin",
+    description: "Only show Pinyin",
     example: "nǐ hǎo"
   },
   {
     id: "word-only" as const,
-    title: "仅汉字 Only Word",
-    description: "仅显示汉字 Only show the Word",
+    title: "Only Word",
+    description: "Only show Word",
     example: "你好"
   }
 ];
@@ -72,11 +72,11 @@ export function SettingsModal({ isOpen, onClose, displayMode, onDisplayModeChang
     <ResponsiveDialogOrDrawer
       isOpen={isOpen}
       onClose={onClose}
-      title="设置 Settings"
-      description="自定义学习会话中汉字显示方式。Change the appearance of the word in the Study session."
+      title="Settings"
+      description="Change the appearance of the words during playback."
       actions={
         <Button onClick={onClose} appearance="primary">
-          完成
+          OK
         </Button>
       }
     >

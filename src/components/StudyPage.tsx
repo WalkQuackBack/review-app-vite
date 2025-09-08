@@ -140,9 +140,9 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
         <div className="study-page-word-card-container">
           <Card className="study-page-word-card" interactable={false}>
             <CardContent className="card-content">
-              <p className="body-m">暂无词汇可供学习</p>
+              <p className="body-m">There are currently no words to learn</p>
               <Button onClick={onBack} appearance="outlined">
-                返回
+                Return
               </Button>
             </CardContent>
           </Card>
@@ -155,7 +155,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
     <Page className="study-page-container">
       {/* Header */}
       <div className="study-page-header">
-        <Button onClick={onBack} appearance="elevated" className="study-page-back-button">
+        <Button onClick={onBack} appearance="elevated" className="study-page-back-button icon">
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <div className="study-page-header-text">
@@ -188,7 +188,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
                   
                   {!speechSupported && (
                     <p className="body-m">
-                    此浏览器不支持语音朗读
+                    This browser does not support speech reading
                   </p>
                   )}
                 </CardContent>

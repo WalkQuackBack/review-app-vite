@@ -43,6 +43,6 @@
   text-align: center;
   height: 100%;
   color: var(--gm3-sys-color-on-surface-variant);
-  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
-  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
 }

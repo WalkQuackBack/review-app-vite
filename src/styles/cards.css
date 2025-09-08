@@ -11,6 +11,8 @@
   border: none; /* Remove default button border */
   padding: 0; /* Remove default button padding */
   text-align: left; /* Align content to left */
+
+  cursor: pointer;
 }
 
 .card[data-interactable="true"]::before {
@@ -26,8 +28,10 @@
   pointer-events: none;
 }
 
-.card[data-interactable="true"]:hover::before {
-  opacity: 0.08
+@media (hover: hover) {
+  .card[data-interactable="true"]:hover::before {
+    opacity: 0.08
+  }
 }
 
 .card[data-interactable="true"]:active::before {

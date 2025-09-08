@@ -5,6 +5,7 @@
   justify-content: center;
   padding: 0.625rem .75rem; /* 10px 24px */
   border-radius: 100px; /* Fully rounded edges for M3 buttons */
+  min-width: 64px;
   min-height: 40px;
   font-family: var(--gm3-sys-typography-type-scale--label-l-font-name);
   font-size: var(--gm3-sys-typography-type-scale--label-l-font-size);
@@ -29,7 +30,7 @@
     position: absolute;
     inset: -1px;
     opacity: 0;
-    transition: opacity 75ms;
+    transition: opacity 150ms;
   }
 
   /* State layers */
@@ -48,13 +49,19 @@
   }
 
   &:not(:disabled) {
-    &:hover::before {
-      opacity: 0.08
+    @media (hover: hover) {
+      &:hover::before {
+        opacity: 0.08
+      }
     }
 
     &:active::before {
       opacity: 0.2
     }
+  }
+
+  &.icon {
+    min-width: 0;
   }
 
   /* Button appearance variations */

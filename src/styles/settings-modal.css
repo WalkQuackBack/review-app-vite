@@ -59,16 +59,16 @@
 }
 
 .settings-modal-option-description {
-  font-family: var(--gm3-sys-typography-type-scale--body-m-font-name);
-  font-size: var(--gm3-sys-typography-type-scale--body-m-font-size);
-  font-weight: var(--gm3-sys-typography-type-scale--body-m-font-weight);
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-l-font-weight);
   color: var(--gm3-sys-color-on-surface-variant);
 }
 
 .settings-modal-option-example {
-  font-family: var(--gm3-sys-typography-type-scale--body-m-alt-font-name);
-  font-size: var(--gm3-sys-typography-type-scale--body-m-alt-font-size);
-  font-weight: var(--gm3-sys-typography-type-scale--body-m-alt-font-weight);
+  font-family: var(--gm3-sys-typography-type-scale--body-l-alt-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-alt-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-l-alt-font-weight);
   color: var(--gm3-sys-color-on-surface);
   padding: 0.5rem;
   background-color: var(--gm3-sys-color-surface-container);

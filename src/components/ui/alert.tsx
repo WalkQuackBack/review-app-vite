@@ -10,6 +10,7 @@ interface AlertProps {
     text: string;
     appearance: ButtonAppearance;
     callback: () => void;
+    autofocus?: boolean;
   }[];
 }
 
@@ -27,9 +28,10 @@ export function Alert({ isOpen, onClose, title, body, actions }: AlertProps) {
               <Button
                 key={index}
                 appearance={action.appearance}
+                autoFocus={action.autofocus}
                 onClick={() => {
                   action.callback();
-                  onClose(); 
+                  onClose();
                 }}
               >
                 {action.text}

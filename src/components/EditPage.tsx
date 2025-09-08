@@ -176,10 +176,10 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
     <Page className="edit-page-container">
       {/* Header */}
       <div className="edit-page-header">
-        <Button onClick={onBack} appearance="elevated" className="study-page-back-button">
+        <Button onClick={onBack} appearance="elevated" className="study-page-back-button icon">
           <ArrowLeft className="h-4 w-4" />
         </Button>
-        <h2 className="title-l">编辑词汇列表 Change the words</h2>
+        <h2 className="title-l">Edit words</h2>
         <span className="body-m">
           {words.length} 词 / {words.length} Words
         </span>
@@ -188,7 +188,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
       {/* Add New Word */}
       <div className="edit-page-add-word-section">
         <Input
-          placeholder="添加新词..."
+          placeholder="Add new word..."
           value={newWord}
           onChange={(e) => setNewWord(e.target.value)}
           onKeyUp={(e) => e.key === 'Enter' && handleAddWord()}
@@ -203,8 +203,8 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
         {words.length === 0 ? (
           <div className="edit-page-no-words">
             <div className="edit-page-no-words-text">
-              <p className="body-m">暂无词汇</p>
-              <p className="body-m">在上方添加您的第一个词</p>
+              <p className="body-m">No words</p>
+              <p className="body-m">Add your first word above</p>
             </div>
           </div>
         ) : (
@@ -290,27 +290,27 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
         <Button
           appearance="destructive"
           onClick={() => setIsDeletAllOpen(true)}>
-          全部删除
+          Delete all
           </Button>
       </div>
       <Alert
         isOpen={isDeleteConfirmOpen}
         onClose={() => setIsDeleteConfirmOpen(false)}
-        title="你确定要删除吗？"
-        body="你不能撤销此操作。"
+        title="Are you sure you want to delete?"
+        body="You cannot undo this action."
         actions={[
-          { text: '取消', appearance: 'text', callback: handleDeleteConfirmCancel },
-          { text: '要', appearance: 'primary', callback: handleDeleteConfirmYes }
+          { text: 'Cancel', appearance: 'text', callback: handleDeleteConfirmCancel },
+          { text: 'Delete', appearance: 'destructive', callback: handleDeleteConfirmYes, autofocus: true }
         ]}
       />
     <Alert
         isOpen={isDeletAllOpen}
         onClose={() => setIsDeletAllOpen(false)}
-        title="你确定要全部删除吗？"
-        body="你不能撤销此操作。"
+        title="Are you sure you want to delete all?"
+        body="You cannot undo this action."
         actions={[
-          { text: '取消', appearance: 'text', callback: handleIsDeletAllCancel },
-          { text: '要', appearance: 'primary', callback: handleIsDeletAllYes }
+          { text: 'Cancel', appearance: 'text', callback: handleIsDeletAllCancel },
+          { text: 'Delete all', appearance: 'destructive', callback: handleIsDeletAllYes, autofocus: true }
         ]}
       />
     </Page>
