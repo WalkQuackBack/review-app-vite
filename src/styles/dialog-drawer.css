@@ -5,6 +5,7 @@
   background-color: rgba(0 0 0 / 0.6);
   position: fixed;
   inset: 0;
+  z-index: 900;
 }
 
 .responsive-drawer-content {
@@ -19,6 +20,7 @@
   flex-direction: column;
   max-height: 90dvh;
   color: var(--gm3-sys-color-on-surface);
+  z-index: 950;
 }
 
 .responsive-drawer-handle {
@@ -80,6 +82,8 @@
   
   position: fixed;
   inset: 0;
+
+  z-index: 950;
 
   animation: fade-in 200ms;
 }
