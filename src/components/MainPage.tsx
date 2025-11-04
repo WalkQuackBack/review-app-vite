@@ -34,15 +34,6 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings,
 
   return (
     <Page className="main-page-container">
-      {/* Settings button */}
-      <Button
-        onClick={onSettings}
-        appearance="text"
-        className="settings-button icon"
-      >
-        <Settings className="h-5 w-5" />
-      </Button>
-
       <div className="main-page-word-list">
         {words.length === 0 ? (
           <p className="body-m">No words added yet</p>
@@ -83,6 +74,12 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings,
             appearance="elevated"
           >
             Start from word
+          </Button>
+          <Button
+            onClick={onSettings}
+            appearance="elevated"
+          >
+            Settings
           </Button>
         </div>
       </div>

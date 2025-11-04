@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSpeech } from "../hooks/useSpeech";
 import { Button } from "./ui/button";
 import { ResponsiveDialogOrDrawer } from "./ui/ResponsiveDialogOrDrawer";
+import { ArrowLeft } from "lucide-react";
 
 interface AutoplayPageProps {
   words: string[];
@@ -10,7 +11,7 @@ interface AutoplayPageProps {
   onBack: () => void;
 }
 
-export function AutoplayPage({ words, startIndex = 0 }: AutoplayPageProps) {
+export function AutoplayPage({ words, startIndex = 0, onBack }: AutoplayPageProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
   const [showActions, setShowActions] = useState(false);
   const { speakWord, isPlaying } = useSpeech();
@@ -56,6 +57,9 @@ export function AutoplayPage({ words, startIndex = 0 }: AutoplayPageProps) {
 
   return (
     <div className="autoplay-page">
+      <Button onClick={onBack} appearance="elevated" className="study-page-back-button icon">
+        <ArrowLeft className="h-4 w-4" />
+      </Button>
       <p>{isPlaying ? "Reading out words" : ""}</p>
       <ResponsiveDialogOrDrawer
         isOpen={showActions}
