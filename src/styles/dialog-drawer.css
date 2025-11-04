@@ -21,7 +21,7 @@
   max-width: 640px;
   max-height: 90dvh;
   color: var(--gm3-sys-color-on-surface);
-  z-index: 950;
+  z-index: 1000;
 
   margin-inline: auto;
 }

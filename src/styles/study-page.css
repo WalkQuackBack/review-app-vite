@@ -107,13 +107,14 @@
     background cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms,
     color cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms;
     
+  &:active {
+    border-radius: 16px;
+  }
+
   &.playing {
     background-color: var(--gm3-sys-color-error);
     color: var(--gm3-sys-color-on-error);
     border-radius: 16px;
-  }
-  &:not(:disabled):active,  &.loading {
-    scale: 0.95
   }
 }
 

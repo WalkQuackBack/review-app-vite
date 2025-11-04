@@ -1,10 +1,12 @@
+
 import { pinyin } from 'pinyin-pro';
-import { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Play, Square, SkipForward, SkipBack, ArrowLeft } from "lucide-react";
 import type { DisplayMode } from "./SettingsModal";
 import { Page } from "./ui/Page";
+import { useSpeech } from "../hooks/useSpeech";
+import { useCarousel } from "../hooks/useCarousel";
 
 interface StudyPageProps {
   words: string[];
@@ -13,24 +15,20 @@ interface StudyPageProps {
   onBack: () => void;
 }
 
-interface SwipeState {
-  startX: number;
-  currentX: number;
-  isDragging: boolean;
-}
-
 export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyPageProps) {
-  const [currentIndex, setCurrentIndex] = useState(startIndex);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [speechSupported, setSpeechSupported] = useState(false);
-  const [swipeState, setSwipeState] = useState<SwipeState | null>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const { isPlaying, isLoading, speechSupported, speakWord, stopSpeaking } = useSpeech();
+  const {
+    currentIndex,
+    carouselRef,
+    nextItem,
+    previousItem,
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    getCarouselTransform,
+    isDragging,
+  } = useCarousel(words.length, startIndex);
 
-  useEffect(() => {
-    // Check if speech synthesis is supported
-    setSpeechSupported('speechSynthesis' in window);
-  }, []);
 
   const currentWord = words[currentIndex];
 
@@ -49,89 +47,22 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
     }
   };
 
-  const speakWord = () => {
-    if (!speechSupported || !currentWord) return;
-    
-    // Stop any ongoing speech
-    window.speechSynthesis.cancel();
-
-    setIsLoading(true);
-    
-    const utterance = new SpeechSynthesisUtterance(currentWord);
-    utterance.rate = 0.8;
-    utterance.volume = 1;
-    utterance.lang = 'zh-CN';
-    
-    utterance.onstart = () => {
-      setIsPlaying(true);
-      setIsLoading(false);
-    };
-    utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
-    
-    window.speechSynthesis.speak(utterance);
-  };
-
-  const stopSpeaking = () => {
-    window.speechSynthesis.cancel();
-    setIsPlaying(false);
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      stopSpeaking();
+    } else {
+      speakWord(currentWord);
+    }
   };
 
   const nextWord = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, words.length - 1));
+    nextItem();
     stopSpeaking();
   };
 
   const previousWord = () => {
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    previousItem();
     stopSpeaking();
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setSwipeState({
-      startX: e.touches[0].clientX,
-      currentX: e.touches[0].clientX,
-      isDragging: false,
-    });
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!swipeState) return;
-    setSwipeState({
-      ...swipeState,
-      currentX: e.touches[0].clientX,
-      isDragging: true,
-    });
-  };
-
-  const handleTouchEnd = () => {
-    if (!swipeState || !carouselRef.current) return;
-
-    const deltaX = swipeState.currentX - swipeState.startX;
-    const cardWidth = carouselRef.current.offsetWidth; // Assuming all cards have the same width as the container
-    const swipeThreshold = cardWidth * 0.1; // Swipe 10% of card width to trigger navigation
-
-    if (Math.abs(deltaX) > swipeThreshold) {
-      if (deltaX < 0) { // Swiped left
-        nextWord();
-      } else { // Swiped right
-        previousWord();
-      }
-    }
-    setSwipeState(null);
-  };
-
-  const getCarouselTransform = () => {
-    let transformX = -currentIndex * 100; // Base transform for current card
-
-    if (swipeState?.isDragging) {
-      const deltaX = swipeState.currentX - swipeState.startX;
-      const cardWidth = carouselRef.current ? carouselRef.current.offsetWidth : 0;
-      if (cardWidth > 0) {
-        transformX += (deltaX / cardWidth) * 100; // Add swipe offset as percentage
-      }
-    }
-    return `translateX(${transformX}%)`;
   };
 
   if (words.length === 0) {
@@ -170,7 +101,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
           className="study-page-carousel-container"
           style={{
             transform: getCarouselTransform(),
-            transition: swipeState?.isDragging ? 'none' : 'transform 750ms cubic-bezier(0.27, 1.06, 0.18, 1.00)',
+            transition: isDragging ? 'none' : 'transform 750ms cubic-bezier(0.27, 1.06, 0.18, 1.00)',
           }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -199,7 +130,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
       </div>
 
       <Button
-        onClick={isPlaying ? stopSpeaking : speakWord}
+        onClick={handlePlayPause}
         appearance="primary"
         className={"study-page-play-button " + (isPlaying ? 'playing' : '') + (isLoading ? 'loading' : '')}
         

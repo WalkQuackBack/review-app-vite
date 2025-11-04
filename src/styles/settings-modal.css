@@ -71,6 +71,6 @@
   font-weight: var(--gm3-sys-typography-type-scale--body-l-alt-font-weight);
   color: var(--gm3-sys-color-on-surface);
   padding: 0.5rem;
-  background-color: var(--gm3-sys-color-surface-container);
+  background-color: var(--gm3-sys-color-surface-container-low);
   border-radius: 0.25rem;
 }

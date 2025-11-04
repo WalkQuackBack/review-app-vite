@@ -76,7 +76,7 @@ export function SettingsModal({ isOpen, onClose, displayMode, onDisplayModeChang
       description="Change the appearance of the words during playback."
       actions={
         <Button onClick={onClose} appearance="primary">
-          OK
+          Save changes
         </Button>
       }
     >

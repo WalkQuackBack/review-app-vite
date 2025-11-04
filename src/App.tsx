@@ -1,73 +1,49 @@
-import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import { MainPage } from "./components/MainPage";
 import { StudyPage } from "./components/StudyPage";
 import { EditPage } from "./components/EditPage";
+import { AutoplayPage } from "./components/AutoplayPage";
 import { StartFromWordDrawer } from "./components/StartFromWordDrawer";
 import { SettingsModal } from "./components/SettingsModal";
 import type { DisplayMode } from "./components/SettingsModal";
+import { useWordList } from "./hooks/useWordList";
+import { useNavigation } from "./hooks/useNavigation";
 
 export default function App() {
-  const [words, setWords] = useState<string[]>(() => {
-    try {
-      const storedWords = localStorage.getItem("wordList");
-      return storedWords ? JSON.parse(storedWords) : [];
-    } catch (error) {
-      console.error("Failed to parse stored word list:", error);
-      return [];
-    }
-  });
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("wordList", JSON.stringify(words));
-    } catch (error) {
-      console.error("Failed to save word list to local storage:", error);
-    }
-  }, [words]);
+  const { words, handleUpdateWords } = useWordList();
+  const {
+    handleStart,
+    handleStartFromWord,
+    handleEditWordList,
+    handleBackToMain,
+    handleSelectStartWord,
+    handleAutoplay,
+  } = useNavigation();
   const [studyStartIndex, setStudyStartIndex] = useState(0);
   const [showStartFromWordDrawer, setShowStartFromWordDrawer] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [displayMode, setDisplayMode] = useState<DisplayMode>("pinyin-word");
 
-  const navigate = useNavigate();
-
-  const handleStart = () => {
-    if (words.length === 0) {
-      navigate("/edit");
-    } else {
-      setStudyStartIndex(0);
-      navigate("/study");
-    }
+  const onStart = () => {
+    handleStart(words.length);
+    setStudyStartIndex(0);
   };
 
-  const handleStartFromWord = () => {
-    if (words.length === 0) {
-      navigate("/edit");
-    } else {
+  const onStartFromWord = () => {
+    if (handleStartFromWord(words.length)) {
       setShowStartFromWordDrawer(true);
     }
   };
 
-  const handleSettings = () => {
+  const onSettings = () => {
     setShowSettings(true);
   };
 
-  const handleSelectStartWord = (index: number) => {
+  const onSelectStartWord = (index: number) => {
     setStudyStartIndex(index);
-    navigate("/study");
-  };
-
-  const handleEditWordList = () => {
-    navigate("/edit");
-  };
-
-  const handleBackToMain = () => {
-    navigate("/");
-  };
-
-  const handleUpdateWords = (newWords: string[]) => {
-    setWords(newWords);
+    handleSelectStartWord();
   };
 
   return (
@@ -77,10 +53,13 @@ export default function App() {
           path="/"
           element={
             <MainPage
-              onStart={handleStart}
-              onStartFromWord={handleStartFromWord}
+              onStart={onStart}
+              onStartFromWord={onStartFromWord}
               onEditWordList={handleEditWordList}
-              onSettings={handleSettings}
+              onSettings={onSettings}
+              onAutoplay={handleAutoplay}
+              words={words}
+              displayMode={displayMode}
             />
           }
         />
@@ -105,12 +84,21 @@ export default function App() {
             />
           }
         />
+        <Route
+          path="/autoplay"
+          element={
+            <AutoplayPage
+              words={words}
+              onBack={handleBackToMain}
+            />
+          }
+        />
       </Routes>
       <StartFromWordDrawer
         isOpen={showStartFromWordDrawer}
         onClose={() => setShowStartFromWordDrawer(false)}
         words={words}
-        onSelectWord={handleSelectStartWord}
+        onSelectWord={onSelectStartWord}
       />
 
       <SettingsModal

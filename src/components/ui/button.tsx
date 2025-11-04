@@ -7,7 +7,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, appearance = "primary", type = "button", ...rest }, ref) => {
+  ({ className, appearance = "text", type = "button", ...rest }, ref) => {
     return (
       <button
         className={`button ${className || ""}`}

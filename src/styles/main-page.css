@@ -4,10 +4,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   min-height: 100dvh;
   padding: 1rem;
   position: relative;
+}
+
+@media (min-width: 1024px) {
+  .main-page-container {
+    justify-content: center;
+  }
 }
 
 .settings-button {
@@ -23,40 +29,56 @@
   padding: 0;
 }
 
-.main-page-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.main-page-header h1 {
-  color: var(--gm3-sys-color-on-background);
-  margin-bottom: 0.5rem;
-}
-
-.main-page-header p {
-  color: var(--gm3-sys-color-on-background);
-}
-
 .main-page-actions {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  max-width: 300px; /* Limit width for better aesthetics */
+  max-width: 800px; /* Limit width for better aesthetics */
 }
 
-.main-page-start-button {
-  width: 100%;
-  padding: 2rem 2rem;
+.main-page-primary-buttons .button {
+  padding: 2rem 4rem;
+  font-family: var(--gm3-sys-typography-type-scale--title-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--title-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--title-l-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--title-l-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--title-l-font-tracking);
 }
 
+.main-page-primary-buttons,
 .main-page-secondary-buttons {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
   width: 100%;
 }
 
-.main-page-secondary-buttons .button {
+.main-page-word-list {
   flex-grow: 1;
+  width: 100%;
+  max-width: 400px;
+  overflow-y: auto;
 }
 
+.main-page-word-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.main-page-word-list li {
+  font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
+  font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
+  font-weight: var(--gm3-sys-typography-type-scale--body-l-font-weight);
+  line-height: var(--gm3-sys-typography-type-scale--body-l-line-height);
+  letter-spacing: var(--gm3-sys-typography-type-scale--body-l-font-tracking);
+  color: var(--gm3-sys-color-on-surface);
+  padding: 0 .5rem;
+  line-height: 3.5rem;
+  text-align: start;
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--gm3-sys-color-outline-variant);
+  }
+}

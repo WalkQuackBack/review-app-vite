@@ -1,3 +1,6 @@
+
+
+
 import { useState, useRef } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -5,7 +8,8 @@ import { Card, CardContent } from "./ui/card";
 import { ArrowLeft, Plus, Edit2, Trash2, Check } from "lucide-react";
 // import "../styles/EditPage.css";
 import { Page } from "./ui/Page";
-import { Alert } from "./ui/alert";
+import { ResponsiveDialogOrDrawer } from "./ui/ResponsiveDialogOrDrawer";
+import { useSwipe } from "../hooks/useSwipe";
 
 interface EditPageProps {
   words: string[];
@@ -13,48 +17,40 @@ interface EditPageProps {
   onBack: () => void;
 }
 
-interface SwipeState {
-  index: number;
-  startX: number;
-  startY: number;
-  currentX: number;
-  currentY: number;
-  isDragging: boolean;
-  isVerticalScroll: boolean; // New property to track vertical scroll
-  dragThreshold: number;
-  verticalThreshold: number;
-  startTime: number;
-}
-
 export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editValue, setEditValue] = useState("");
-  const [swipeState, setSwipeState] = useState<SwipeState | null>(null);
   const [newWord, setNewWord] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [wordToDelete, setWordToDelete] = useState(0);
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [dialogConfig, setDialogConfig] = useState<{ title: string; description: string; actions: any[] } | null>(null);
 
-  const [isDeletAllOpen, setIsDeletAllOpen] = useState(false);
-
-  const handleDeleteConfirmYes = () => {
-    setIsDeleteConfirmOpen(false);
-    const updatedWords = words.filter((_, i) => i !== wordToDelete);
+  const handleDeleteWord = (index: number) => {
+    const updatedWords = words.filter((_, i) => i !== index);
     onUpdateWords(updatedWords);
   };
-  const handleDeleteConfirmCancel = () => setIsDeleteConfirmOpen(false);
 
-  const handleIsDeletAllYes = () => {
-    setIsDeleteConfirmOpen(false);
-    onUpdateWords([])
+  const handleDeleteAll = () => {
+    setDialogConfig({
+      title: "Are you sure you want to delete all?",
+      description: "You cannot undo this action.",
+      actions: [
+        <Button onClick={() => setDialogConfig(null)} appearance="text">Cancel</Button>,
+        <Button onClick={() => {
+          onUpdateWords([]);
+          setDialogConfig(null);
+        }} appearance="destructive">Delete all</Button>
+      ]
+    });
   };
-  const handleIsDeletAllCancel = () => setIsDeleteConfirmOpen(false);
 
   const handleAddWord = () => {
     if (newWord.trim()) {
-      onUpdateWords([...words, newWord.trim()]);
+      const newWords = [...words, newWord.trim()];
+      onUpdateWords(newWords);
       setNewWord("");
+      setEditingIndex(newWords.length - 1);
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   };
 
@@ -64,113 +60,34 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
     setTimeout(() => inputRef.current?.focus(), 100);
   };
 
-  const handleSaveEdit = () => {
-    if (editingIndex !== null && editValue.trim()) {
-      const updatedWords = [...words];
-      updatedWords[editingIndex] = editValue.trim();
-      onUpdateWords(updatedWords);
-    }
-    setEditingIndex(null);
-    setEditValue("");
-  };
+  const handleSaveEdit = (isEnter: boolean = false) => {
+    if (editingIndex !== null) {
+      if (editValue.trim() === "" && !isEnter) {
+        // If editValue is empty and check button is pressed, remove the word
+        const updatedWords = words.filter((_, i) => i !== editingIndex);
+        onUpdateWords(updatedWords);
+        setEditingIndex(null);
+        setEditValue("");
+      } else if (editValue.trim() !== "") {
+        const updatedWords = [...words];
+        updatedWords[editingIndex] = editValue.trim();
 
-  const handleDeleteWord = (index: number) => {
-    setWordToDelete(index)
-    setIsDeleteConfirmOpen(true)
-  };
-
-  // Touch event handlers for swipe gestures
-  const handleTouchStart = (e: React.TouchEvent, index: number) => {
-    if (editingIndex !== null) return;
-
-    const touch = e.touches[0];
-    const itemElement = e.currentTarget as HTMLElement;
-    const itemWidth = itemElement.offsetWidth;
-
-    setSwipeState({
-      index,
-      startX: touch.clientX,
-      startY: touch.clientY,
-      currentX: touch.clientX,
-      currentY: touch.clientY,
-      isDragging: false,
-      isVerticalScroll: false,
-      dragThreshold: itemWidth * 0.25,
-      verticalThreshold: 10, // Define a vertical threshold
-      startTime: Date.now(),
-    });
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!swipeState || editingIndex !== null || swipeState.isVerticalScroll) return;
-    
-    const touch = e.touches[0];
-    const newCurrentX = touch.clientX;
-    const newCurrentY = touch.clientY;
-    const deltaX = Math.abs(newCurrentX - swipeState.startX);
-    const deltaY = Math.abs(newCurrentY - swipeState.startY);
-
-    const timeElapsed = Date.now() - swipeState.startTime;
-
-    const isPastTimeThreshold = timeElapsed > 1000;
-    const isHorizontalDrag = deltaX > deltaY;
-
-    // Check if the gesture is a dominant vertical scroll
-    if (!swipeState.isDragging && !isHorizontalDrag && deltaY > swipeState.verticalThreshold) {
-      setSwipeState((prevState) => {
-        if (prevState) {
-          return {
-            ...prevState,
-            isVerticalScroll: true, // Mark this gesture as a vertical scroll
-          };
+        if (isEnter) {
+          updatedWords.splice(editingIndex + 1, 0, "");
+          onUpdateWords(updatedWords);
+          setEditingIndex(editingIndex + 1);
+          setEditValue("");
+          setTimeout(() => inputRef.current?.focus(), 100);
+        } else {
+          onUpdateWords(updatedWords);
+          setEditingIndex(null);
+          setEditValue("");
         }
-        return null;
-      });
-      return; // Exit early
-    }
-
-    // Continue the drag if the time threshold has been passed
-    // or if the initial drag was horizontal
-    if (isHorizontalDrag || isPastTimeThreshold) {
-      setSwipeState((prevState) => {
-        if (prevState) {
-          return {
-            ...prevState,
-            currentX: newCurrentX,
-            currentY: newCurrentY,
-            isDragging: true,
-          };
-        }
-        return null;
-      });
-    }
-  };
-
-  const handleTouchEnd = () => {
-    if (!swipeState || editingIndex !== null) return;
-
-    const deltaX = swipeState.currentX - swipeState.startX;
-    const actionThreshold = swipeState.dragThreshold;
-
-    if (Math.abs(deltaX) > actionThreshold) {
-      if (deltaX > 0) {
-        handleStartEdit(swipeState.index);
-      } else {
-        handleDeleteWord(swipeState.index);
       }
     }
-
-    setSwipeState(null);
   };
 
-  const getSwipeTransform = (index: number) => {
-    if (!swipeState || swipeState.index !== index || !swipeState.isDragging) {
-      return "translateX(0)";
-    }
-    
-    const deltaX = swipeState.currentX - swipeState.startX;
-    return `translateX(${deltaX}px)`;
-  };
+  const { swipeState, handleTouchStart, handleTouchMove, handleTouchEnd, getSwipeTransform } = useSwipe(handleDeleteWord, handleStartEdit);
 
   return (
     <Page className="edit-page-container">
@@ -181,7 +98,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
         </Button>
         <h2 className="title-l">Edit words</h2>
         <span className="body-m">
-          {words.length} 词 / {words.length} Words
+          {words.length} Words
         </span>
       </div>
 
@@ -232,10 +149,10 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                         value={editValue}
                         onChange={(e) => setEditValue(e.target.value)}
                         onKeyUp={(e) => {
-                          if (e.key === 'Enter') handleSaveEdit();
+                          if (e.key === 'Enter') handleSaveEdit(true);
                         }}
                       />
-                      <Button onClick={handleSaveEdit} appearance="primary" className="edit-page-word-item-action-button">
+                      <Button onClick={() => handleSaveEdit(false)} appearance="primary" className="edit-page-word-item-action-button">
                         <Check />
                       </Button>
                     </div>
@@ -288,31 +205,20 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
           </div>
         )}
         <Button
-          appearance="destructive"
-          onClick={() => setIsDeletAllOpen(true)}>
+          appearance="text"
+          onClick={handleDeleteAll}>
           Delete all
           </Button>
       </div>
-      <Alert
-        isOpen={isDeleteConfirmOpen}
-        onClose={() => setIsDeleteConfirmOpen(false)}
-        title="Are you sure you want to delete?"
-        body="You cannot undo this action."
-        actions={[
-          { text: 'Cancel', appearance: 'text', callback: handleDeleteConfirmCancel },
-          { text: 'Delete', appearance: 'destructive', callback: handleDeleteConfirmYes, autofocus: true }
-        ]}
-      />
-    <Alert
-        isOpen={isDeletAllOpen}
-        onClose={() => setIsDeletAllOpen(false)}
-        title="Are you sure you want to delete all?"
-        body="You cannot undo this action."
-        actions={[
-          { text: 'Cancel', appearance: 'text', callback: handleIsDeletAllCancel },
-          { text: 'Delete all', appearance: 'destructive', callback: handleIsDeletAllYes, autofocus: true }
-        ]}
-      />
+      {dialogConfig && (
+        <ResponsiveDialogOrDrawer
+          isOpen={true}
+          onClose={() => setDialogConfig(null)}
+          title={dialogConfig.title}
+          description={dialogConfig.description}
+          actions={dialogConfig.actions}
+        />
+      )}
     </Page>
   );
 }

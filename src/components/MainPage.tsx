@@ -1,16 +1,37 @@
+
+
 import { Button } from "./ui/button";
 import { Settings } from "lucide-react";
-// import "../styles/MainPage.css";
 import { Page } from "./ui/Page";
+import { pinyin } from 'pinyin-pro';
+import type { DisplayMode } from "../components/SettingsModal";
 
 interface MainPageProps {
   onStart: () => void;
   onStartFromWord: () => void;
   onEditWordList: () => void;
   onSettings: () => void;
+  onAutoplay: () => void;
+  words: string[];
+  displayMode: DisplayMode;
 }
 
-export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings }: MainPageProps) {
+export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings, onAutoplay, words, displayMode }: MainPageProps) {
+  const getDisplayText = (word: string) => {
+    const pinyinResult = pinyin(word, { toneType: 'symbol', type: 'array' }).join(' ');
+
+    switch (displayMode) {
+      case "pinyin-word":
+        return `${pinyinResult} / ${word}`;
+      case "pinyin-only":
+        return pinyinResult;
+      case "word-only":
+        return word;
+      default:
+        return word;
+    }
+  };
+
   return (
     <Page className="main-page-container">
       {/* Settings button */}
@@ -21,30 +42,49 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings 
       >
         <Settings className="h-5 w-5" />
       </Button>
-      
+
+      <div className="main-page-word-list">
+        {words.length === 0 ? (
+          <p className="body-m">No words added yet</p>
+        ) : (
+          <ul>
+            {words.map((word, index) => (
+              <li key={index}>{getDisplayText(word)}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+
       <div className="main-page-actions">
+        <div className="main-page-primary-buttons">
+          <Button
+            onClick={onAutoplay}
+            appearance="primary"
+          >
+            Autoplay
+          </Button>
+          <Button
+            onClick={onStart}
+            appearance="tonal"
+            className="main-page-start-button"
+          >
+            Manual
+          </Button>
+        </div>
         <div className="main-page-secondary-buttons">
           <Button
+            onClick={onEditWordList}
+            appearance="elevated"
+          >
+            Edit
+          </Button>
+          <Button
             onClick={onStartFromWord}
-            appearance="tonal"
+            appearance="elevated"
           >
             Start from word
           </Button>
-          
-          <Button
-            onClick={onEditWordList}
-            appearance="outlined"
-          >
-            Edit words
-          </Button>
         </div>
-        <Button
-          onClick={onStart}
-          appearance="primary"
-          className="main-page-start-button"
-        >
-          Start playback
-        </Button>
       </div>
     </Page>
   );

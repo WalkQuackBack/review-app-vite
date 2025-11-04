@@ -15,14 +15,13 @@
 .edit-page-header {
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0rem .5rem ;
   gap: 1rem;
-  padding-bottom: 1rem;
   position: fixed;
   z-index: 5;
   top: 0;
   inset-inline: 0;
-  height: 78px;
+  height: 56px;
   text-wrap: nowrap;
   background-color: var(--gm3-sys-color-surface-container-low);
 }
@@ -44,15 +43,17 @@
   display: flex;
   gap: 1rem;
   input {
-    
     flex-grow: 1;
   }
 }
 
 .edit-page-word-list-container {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
   max-width: 800px;
+
+  overscroll-behavior-x: none;
 }
 
 .edit-page-no-words {
@@ -73,8 +74,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
-  overflow-x: hidden;
 }
 
 .edit-page-word-item {
@@ -159,9 +158,9 @@
   transform: translateX(100%);
 }
 
-.edit-page-instructions {
-  text-align: center;
-  padding-top: 1rem;
-  border-top: 1px solid var(--gm3-sys-color-outline-variant);
-  color: var(--gm3-sys-color-on-surface-variant);
+.study-page-back-button {
+  width: 40px;
+  min-height: 40px;
+  height: 40px;
+  padding: 6px;
 }

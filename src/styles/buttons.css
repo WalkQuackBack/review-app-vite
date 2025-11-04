@@ -3,9 +3,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.625rem .75rem; /* 10px 24px */
+  padding: 0.625rem 0.7rem; /* 10px 24px */
   border-radius: 100px; /* Fully rounded edges for M3 buttons */
-  min-width: 64px;
+  min-width: 56px;
   min-height: 40px;
   font-family: var(--gm3-sys-typography-type-scale--label-l-font-name);
   font-size: var(--gm3-sys-typography-type-scale--label-l-font-size);
@@ -45,7 +45,7 @@
 
   &:disabled {
     cursor: default;
-    opacity: 0.35;
+    opacity: 0.38;
   }
 
   &:not(:disabled) {
@@ -113,6 +113,7 @@
   &[data-appearance="text"] {
     background-color: transparent;
     color: var(--gm3-sys-color-primary); /* Or on-surface color */
+    padding: 0.625rem 0.5rem;
   }
 
   &[data-appearance="destructive"] {
