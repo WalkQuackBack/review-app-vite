@@ -10,12 +10,12 @@ interface AutoplayPageProps {
   onBack: () => void;
 }
 
-export function AutoplayPage({ words, startIndex = 0, onBack }: AutoplayPageProps) {
+export function AutoplayPage({ words, startIndex = 0 }: AutoplayPageProps) {
   const [currentIndex, setCurrentIndex] = useState(startIndex);
   const [showActions, setShowActions] = useState(false);
-  const { speakWord, stopSpeaking, isPlaying } = useSpeech();
+  const { speakWord, isPlaying } = useSpeech();
 
-  const playWordSequence = async (word: string, index: number) => {
+  const playWordSequence = async (word: string, _index: number) => {
     try {
       setShowActions(false);
       await speakWord(`You are on word ${currentIndex + 1} out of ${words.length}`, "en-US");
