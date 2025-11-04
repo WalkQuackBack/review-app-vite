@@ -1,7 +1,6 @@
 
 
 import { Button } from "./ui/button";
-import { Settings } from "lucide-react";
 import { Page } from "./ui/Page";
 import { pinyin } from 'pinyin-pro';
 import type { DisplayMode } from "../components/SettingsModal";
