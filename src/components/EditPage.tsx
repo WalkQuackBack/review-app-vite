@@ -110,7 +110,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
           onChange={(e) => setNewWord(e.target.value)}
           onKeyUp={(e) => e.key === 'Enter' && handleAddWord()}
         />
-        <Button onClick={handleAddWord} disabled={!newWord.trim()} appearance="primary">
+        <Button onClick={handleAddWord} disabled={!newWord.trim()} className="icon" appearance="primary">
           <Plus className="h-4 w-4" />
         </Button>
       </div>
@@ -130,10 +130,10 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
               <Card
                 key={index}
                 interactable={false}
-                className="edit-page-word-item"
+                className={"edit-page-word-item" + (swipeState?.index === index && swipeState.isDragging ? ' dragging' : '')}
                 style={{
                   transform: getSwipeTransform(index),
-                  transition: swipeState?.index === index && swipeState.isDragging ? 'none' : 'transform 350ms cubic-bezier(0.27, 1.06, 0.18, 1.00), opacity 75ms ease',
+                  transition: swipeState?.index === index && swipeState.isDragging ? 'border-radius cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms' : 'transform 350ms cubic-bezier(0.27, 1.06, 0.18, 1.00), border-radius cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms, opacity 75ms ease',
                 }}
               >
                 <CardContent
@@ -152,7 +152,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                           if (e.key === 'Enter') handleSaveEdit(true);
                         }}
                       />
-                      <Button onClick={() => handleSaveEdit(false)} appearance="primary" className="edit-page-word-item-action-button">
+                      <Button onClick={() => handleSaveEdit(false)} appearance="primary" className="icon">
                         <Check />
                       </Button>
                     </div>
@@ -162,17 +162,17 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
                       <div className="edit-page-word-item-actions">
                         <Button
                           onClick={() => handleStartEdit(index)}
-                          appearance="tonal"
-                          className="edit-page-word-item-action-button"
+                          appearance="text"
+                          className="icon"
                         >
                           <Edit2 className="h-3 w-3" />
                         </Button>
                         <Button
                           onClick={() => handleDeleteWord(index)}
-                          appearance="destructive"
-                          className="edit-page-word-item-action-button delete-Button"
+                          appearance="text"
+                          className="icon"
                         >
-                          <Trash2 className="h-3 w-3" />
+                          <Trash2 className="h33 w-3" />
                         </Button>
                       </div>
                     </div>

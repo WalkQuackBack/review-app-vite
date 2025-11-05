@@ -37,10 +37,10 @@
   touch-action: none;
   mask: linear-gradient(
     90deg,
-    rgb(0 0 0 / 0.5),
-    black calc(0% + 5vw),
-    black calc(100% - 5vw),
-    rgb(0 0 0 / 0.5)
+    rgb(0 0 0 / 0),
+    black calc(0% + 10vw),
+    black calc(100% - 10vw),
+    rgb(0 0 0 / 0)
   );
   width: calc(100% + 2rem);
   max-width: 1000px;
@@ -88,28 +88,9 @@
 
 .study-page-play-button {
   width: 100%;
-  max-width: 600px;
-  height: 96px;
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-
-  border-radius: 64px;
   margin-block-end: 1rem;
 
   flex-shrink: 0;
-
-  transition:
-    border-radius cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms,
-    scale cubic-bezier(0.27, 1.06, 0.18, 1.00) 500ms,
-    background cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms,
-    color cubic-bezier(0.31, 0.94, 0.34, 1.00) 150ms;
-    
-  &:active {
-    border-radius: 16px;
-  }
 
   &.playing {
     background-color: var(--gm3-sys-color-error);
@@ -129,16 +110,4 @@
 
 .study-page-nav-button {
   flex-grow: 1;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border-radius: 28px;
-  transition:
-    border-radius cubic-bezier(0.42, 1.67, 0.21, 0.90) 350ms,
-    opacity 150ms;
-  &:not(:disabled):active {
-    border-radius: 8px;
-  }
 }

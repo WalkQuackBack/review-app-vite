@@ -7,7 +7,7 @@
 .settings-modal-display-mode-options {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 8px;
 }
 
 .settings-modal-display-mode-title {
@@ -25,8 +25,7 @@
 }
 
 .settings-modal-option-card.selected .settings-modal-option-title,
-.settings-modal-option-card.selected .settings-modal-option-description,
-.settings-modal-option-card.selected .settings-modal-option-example {
+.settings-modal-option-card.selected .settings-modal-option-description {
   color: var(--gm3-sys-color-on-primary-container);
 }
 
@@ -48,16 +47,6 @@
   color: var(--gm3-sys-color-on-surface);
 }
 
-.settings-modal-option-check-icon {
-  color: var(--gm3-sys-color-primary);
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.settings-modal-option-card.selected .settings-modal-option-check-icon {
-  color: var(--gm3-sys-color-on-primary-container);
-}
-
 .settings-modal-option-description {
   font-family: var(--gm3-sys-typography-type-scale--body-l-font-name);
   font-size: var(--gm3-sys-typography-type-scale--body-l-font-size);
@@ -70,7 +59,7 @@
   font-size: var(--gm3-sys-typography-type-scale--body-l-alt-font-size);
   font-weight: var(--gm3-sys-typography-type-scale--body-l-alt-font-weight);
   color: var(--gm3-sys-color-on-surface);
-  padding: 0.5rem;
-  background-color: var(--gm3-sys-color-surface-container-low);
-  border-radius: 0.25rem;
+  padding: 8px;
+  background-color: var(--gm3-sys-color-surface-container-lowest);
+  border-radius: 6px;
 }

@@ -69,10 +69,10 @@ export function AutoplayPage({ words, startIndex = 0, onBack }: AutoplayPageProp
         actions={
           <>
             <Button onClick={handleRepeat}>Repeat</Button>
-            <Button onClick={handlePrevious} disabled={currentIndex === 0}>
+            <Button onClick={handlePrevious} appearance="tonal" size="m" disabled={currentIndex === 0}>
               Previous Word
             </Button>
-            <Button onClick={handleNext} disabled={currentIndex === words.length - 1} appearance="primary">
+            <Button onClick={handleNext} appearance="primary" size="m" disabled={currentIndex === words.length - 1}>
               Next Word
             </Button>
           </>

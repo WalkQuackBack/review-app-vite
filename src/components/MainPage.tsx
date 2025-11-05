@@ -49,14 +49,15 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings,
         <div className="main-page-primary-buttons">
           <Button
             onClick={onAutoplay}
+            size="l"
             appearance="primary"
           >
             Autoplay
           </Button>
           <Button
             onClick={onStart}
+            size="l"
             appearance="tonal"
-            className="main-page-start-button"
           >
             Manual
           </Button>
@@ -70,7 +71,7 @@ export function MainPage({ onStart, onStartFromWord, onEditWordList, onSettings,
           </Button>
           <Button
             onClick={onStartFromWord}
-            appearance="elevated"
+            appearance="tertiary"
           >
             Start from word
           </Button>

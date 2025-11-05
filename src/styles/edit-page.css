@@ -1,15 +1,6 @@
-/* EditPage.css */
-
 .edit-page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-top: 96px;
-
-  & > * {
-    width: 100%;
-  }
+  padding-top: 56px;
+  background-color: var(--gm3-sys-color-surface-container);
 }
 
 .edit-page-header {
@@ -23,7 +14,7 @@
   inset-inline: 0;
   height: 56px;
   text-wrap: nowrap;
-  background-color: var(--gm3-sys-color-surface-container-low);
+  background-color: var(--gm3-sys-color-surface-container);
 }
 
 .edit-page-header h2 {
@@ -40,8 +31,9 @@
 
 .edit-page-add-word-section {
   padding: .5rem 0;
+  width: 100%;
   display: flex;
-  gap: 1rem;
+  gap: .5rem;
   input {
     flex-grow: 1;
   }
@@ -51,6 +43,7 @@
   flex-grow: 1;
   overflow-x: hidden;
   overflow-y: hidden;
+  width: 100%;
   max-width: 800px;
 
   overscroll-behavior-x: none;
@@ -73,21 +66,28 @@
 .edit-page-word-list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 2px;
 }
 
 .edit-page-word-item {
   position: relative;
   display: flex;
   align-items: center;
-  background-color: var(--gm3-sys-color-surface-container-low);
-  border-radius: 1rem;
+  background-color: var(--gm3-sys-color-surface);
+  height: 48px;
 
   touch-action: pan-y;
-
-  height: 64px;
-
   overflow: visible;
+  border-radius: 4px;
+  &:first-child {
+    border-radius: 12px 12px 4px 4px;
+  }
+  &:last-child {
+    border-radius: 4px 4px 12px 12px;
+  }
+  &.dragging {
+    border-radius: 12px;
+  }
 }
 
 .edit-page-word-item .card-content {
@@ -95,27 +95,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%; /* Ensure content takes full width for swipe */
-  padding: 0.5rem;
+  padding-inline: 0 4px;
 }
 
 .edit-page-word-item-editing {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 8px;
   flex-grow: 1;
   input {
     flex-grow: 1;
-    background-color: transparent;
   }
-}
-
-.edit-page-word-item-action-button {
-  min-width: 48px; /* Material 3 touch target size */
-  min-height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .edit-page-word-item-display {
@@ -123,25 +113,22 @@
   align-items: center;
   justify-content: space-between;
   flex-grow: 1;
-  padding-inline-start: .5rem;
+  padding-inline-start: 12px;
 }
 
 .edit-page-word-item-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .edit-page-swipe-indicator-overlay {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 64px; /* Adjust as needed */
+  inset-block: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  z-index: 2; /* Behind the card content */
-  border-radius: inherit;;
+  z-index: 2;
+  border-radius: 16px;
 }
 
 .edit-page-swipe-indicator-overlay.left {
@@ -156,11 +143,4 @@
   background-color: var(--gm3-sys-color-error);
   color: var(--gm3-sys-color-on-error);
   transform: translateX(100%);
-}
-
-.study-page-back-button {
-  width: 40px;
-  min-height: 40px;
-  height: 40px;
-  padding: 6px;
 }

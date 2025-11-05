@@ -132,6 +132,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
       <Button
         onClick={handlePlayPause}
         appearance="primary"
+        size='l'
         className={"study-page-play-button " + (isPlaying ? 'playing' : '') + (isLoading ? 'loading' : '')}
         
         disabled={!speechSupported}
@@ -149,6 +150,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
           onClick={previousWord}
           disabled={currentIndex === 0}
           appearance="tonal"
+          size='m'
           className="study-page-nav-button"
         >
           <SkipBack className="h-5 w-5" />
@@ -158,6 +160,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
           onClick={nextWord}
           disabled={currentIndex === words.length - 1}
           appearance="tonal"
+          size='m'
           className="study-page-nav-button"
         >
           <SkipForward className="h-5 w-5" />

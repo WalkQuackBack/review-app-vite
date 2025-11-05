@@ -1,6 +1,6 @@
 .card {
-  background-color: var(--gm3-sys-color-surface-container);
-  border-radius: .5rem; /* Example border-radius, adjust as needed */
+  background-color: var(--gm3-sys-color-surface-container-low);
+  border-radius: 16px; /* Example border-radius, adjust as needed */
   position: relative;
   overflow: hidden;
   color: inherit;
@@ -35,7 +35,7 @@
 }
 
 .card[data-interactable="true"]:active::before {
-  opacity: 0.2
+  opacity: 0.1
 }
 
 .card[data-interactable="true"]:focus-visible {
@@ -44,5 +44,5 @@
 }
 
 .card-content {
-  padding: 1rem; /* Example padding, adjust as needed */
+  padding: 16px; /* Example padding, adjust as needed */
 }
