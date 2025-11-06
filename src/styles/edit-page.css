@@ -44,7 +44,8 @@
   overflow-x: hidden;
   overflow-y: hidden;
   width: 100%;
-  max-width: 800px;
+  max-width: 500px;
+  margin-inline: auto;
 
   overscroll-behavior-x: none;
 }
@@ -124,6 +125,7 @@
 .edit-page-word-item-actions {
   display: flex;
   gap: 4px;
+  padding-inline-start: 8px;
 }
 
 .edit-page-swipe-indicator-overlay {
