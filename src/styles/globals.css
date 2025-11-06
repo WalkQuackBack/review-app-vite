@@ -161,6 +161,8 @@ body {
   line-height: var(--gm3-sys-typography-type-scale--body-l-line-height);
   color: var(--gm3-sys-color-on-background);
   background-color: var(--gm3-sys-color-background);
+
+  scrollbar-color: var(--gm3-sys-color-outline-variant) transparent;
 }
 
 h1, h2, h3, h4, h5, h6 {
