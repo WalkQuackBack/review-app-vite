@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Drawer } from "vaul";
 
 interface ResponsiveDialogOrDrawerProps {
@@ -22,12 +22,15 @@ export function ResponsiveDialogOrDrawer({
   const [isMobile, setIsMobile] = useState(false);
   const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
+  const checkMobile = () => {
+    setIsMobile(window.innerWidth < 1024);
+  };
 
+  useLayoutEffect(() => {
     checkMobile();
+  })
+
+  useEffect(() => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
