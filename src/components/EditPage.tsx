@@ -50,7 +50,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
       onUpdateWords(newWords);
       setNewWord("");
       setEditingIndex(newWords.length - 1);
-      setTimeout(() => inputRef.current?.focus(), 100);
+      setTimeout(() => inputRef.current?.focus(), 0);
     }
   };
 
@@ -62,8 +62,8 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
 
   const handleSaveEdit = (isEnter: boolean = false) => {
     if (editingIndex !== null) {
-      if (editValue.trim() === "" && !isEnter) {
-        // If editValue is empty and check button is pressed, remove the word
+      if (editValue.trim() === "") {
+        // If editValue is empty, remove the word
         const updatedWords = words.filter((_, i) => i !== editingIndex);
         onUpdateWords(updatedWords);
         setEditingIndex(null);
@@ -77,7 +77,7 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
           onUpdateWords(updatedWords);
           setEditingIndex(editingIndex + 1);
           setEditValue("");
-          setTimeout(() => inputRef.current?.focus(), 100);
+          setTimeout(() => inputRef.current?.focus(), 0);
         } else {
           onUpdateWords(updatedWords);
           setEditingIndex(null);
@@ -204,11 +204,12 @@ export function EditPage({ words, onUpdateWords, onBack }: EditPageProps) {
             ))}
           </div>
         )}
-        <Button
+       <Button
           appearance="text"
+          className="edit-page-delete-all"
           onClick={handleDeleteAll}>
           Delete all
-          </Button>
+        </Button>
       </div>
       {dialogConfig && (
         <ResponsiveDialogOrDrawer
