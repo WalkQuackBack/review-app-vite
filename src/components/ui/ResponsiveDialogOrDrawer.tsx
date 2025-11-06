@@ -28,7 +28,7 @@ export function ResponsiveDialogOrDrawer({
 
   useLayoutEffect(() => {
     checkMobile();
-  })
+  }, [])
 
   useEffect(() => {
     window.addEventListener('resize', checkMobile);
