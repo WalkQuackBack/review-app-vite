@@ -2,7 +2,7 @@
 import { pinyin } from 'pinyin-pro';
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
-import { Play, Square, SkipForward, SkipBack, ArrowLeft } from "lucide-react";
+import { Play, Square, SkipForward, SkipBack, ArrowLeft, Loader } from "lucide-react";
 import type { DisplayMode } from "./SettingsModal";
 import { Page } from "./ui/Page";
 import { useSpeech } from "../hooks/useSpeech";
@@ -29,7 +29,6 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack, goToEdit
     getCarouselTransform,
     isDragging,
   } = useCarousel(words.length, startIndex);
-
 
   const currentWord = words[currentIndex];
 
@@ -119,7 +118,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack, goToEdit
                 className="study-page-word-card"
               >
                 <CardContent className="card-content">
-                  <div className="study-page-word-text display-s">{getDisplayText(word)}</div>
+                  {getDisplayText(word)}
                   
                   {!speechSupported && (
                     <p className="body-m">
@@ -141,7 +140,7 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack, goToEdit
         
         disabled={!speechSupported}
       >
-        {isPlaying ? (
+        {isLoading ? <Loader className="h-6 w-6" /> : isPlaying ? (
           <Square className="h-6 w-6" />
         ) : (
           <Play className="h-6 w-6 ml-1" />
