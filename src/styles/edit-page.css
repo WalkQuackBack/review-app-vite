@@ -74,16 +74,20 @@
   display: flex;
   align-items: center;
   background-color: var(--gm3-sys-color-surface);
-  height: 48px;
+  min-height: 48px;
 
   touch-action: pan-y;
   overflow: visible;
   border-radius: 4px;
+
   &:first-child {
     border-radius: 12px 12px 4px 4px;
   }
   &:last-child {
     border-radius: 4px 4px 12px 12px;
+  }
+  &:only-child {
+    border-radius: 12px;
   }
   &.dragging {
     border-radius: 12px;
@@ -96,6 +100,7 @@
   align-items: center;
   justify-content: space-between;
   padding-inline: 0 4px;
+  padding-block: 0;
 }
 
 .edit-page-word-item-editing {
@@ -118,7 +123,7 @@
 
 .edit-page-word-item-actions {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
 .edit-page-swipe-indicator-overlay {
@@ -143,4 +148,10 @@
   background-color: var(--gm3-sys-color-error);
   color: var(--gm3-sys-color-on-error);
   transform: translateX(100%);
+}
+
+.edit-page-delete-all {
+  color: var(--gm3-sys-color-error);
+  float: right;
+  margin-block: 6px;
 }

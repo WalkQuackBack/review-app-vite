@@ -1,4 +1,4 @@
-.button {
+:where(.button) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,8 +117,8 @@
   }
 
   &[data-appearance="destructive"] {
-    background-color: var(--gm3-sys-color-error-container);
-    color: var(--gm3-sys-color-on-error-container)
+    background-color: var(--gm3-sys-color-error);
+    color: var(--gm3-sys-color-on-error)
   }
 
   &[data-size="xs"] {

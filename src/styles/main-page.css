@@ -60,7 +60,9 @@
   
   margin-bottom: 2px;
   padding: 0 1rem;
-  line-height: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
   text-align: start;
   border-radius: 4px;
   &:first-child {
@@ -68,5 +70,8 @@
   }
   &:last-child {
     border-radius: 4px 4px 12px 12px;
+  }
+  &:only-child {
+    border-radius: 12px;
   }
 }
