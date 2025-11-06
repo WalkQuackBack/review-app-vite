@@ -13,9 +13,10 @@ interface StudyPageProps {
   startIndex?: number;
   displayMode: DisplayMode;
   onBack: () => void;
+  goToEditPage: () => void;
 }
 
-export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyPageProps) {
+export function StudyPage({ words, startIndex = 0, displayMode, onBack, goToEditPage }: StudyPageProps) {
   const { isPlaying, isLoading, speechSupported, speakWord, stopSpeaking } = useSpeech();
   const {
     currentIndex,
@@ -69,9 +70,12 @@ export function StudyPage({ words, startIndex = 0, displayMode, onBack }: StudyP
     return (
       <Page className="study-page-container">
         <div className="study-page-word-card-container">
-          <Card className="study-page-word-card" interactable={false}>
+          <Card interactable={false}>
             <CardContent className="card-content">
-              <p className="body-m">There are currently no words to learn</p>
+              <p className="body-m">Add words to start playback</p>
+              <Button onClick={goToEditPage} appearance="primary">
+                Edit words
+              </Button>
               <Button onClick={onBack} appearance="outlined">
                 Return
               </Button>

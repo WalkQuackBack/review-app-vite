@@ -27,12 +27,12 @@ export default function App() {
   const [displayMode, setDisplayMode] = useState<DisplayMode>("pinyin-word");
 
   const onStart = () => {
-    handleStart(words.length);
+    handleStart();
     setStudyStartIndex(0);
   };
 
   const onStartFromWord = () => {
-    if (handleStartFromWord(words.length)) {
+    if (handleStartFromWord()) {
       setShowStartFromWordDrawer(true);
     }
   };
@@ -71,6 +71,7 @@ export default function App() {
               startIndex={studyStartIndex}
               displayMode={displayMode}
               onBack={handleBackToMain}
+              goToEditPage={handleEditWordList}
             />
           }
         />
@@ -99,6 +100,7 @@ export default function App() {
         onClose={() => setShowStartFromWordDrawer(false)}
         words={words}
         onSelectWord={onSelectStartWord}
+        goToEditPage={handleEditWordList}
       />
 
       <SettingsModal

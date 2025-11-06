@@ -7,13 +7,19 @@ interface StartFromWordDrawerProps {
   onClose: () => void;
   words: string[];
   onSelectWord: (index: number) => void;
+  goToEditPage: () => void;
 }
 
-export function StartFromWordDrawer({ isOpen, onClose, words, onSelectWord }: StartFromWordDrawerProps) {
+export function StartFromWordDrawer({ isOpen, onClose, words, onSelectWord, goToEditPage }: StartFromWordDrawerProps) {
   const handleSelectWord = (index: number) => {
     onSelectWord(index);
     onClose();
   };
+
+  const handleNavigateToEdit = () => {
+    goToEditPage();
+    onClose();
+  }
 
   const wordsList = (
     <div className="start-from-word-drawer-list-container">
@@ -52,8 +58,10 @@ export function StartFromWordDrawer({ isOpen, onClose, words, onSelectWord }: St
       {words.length === 0 ? (
         <div className="flex-1 flex items-center justify-center">
           <div className="start-from-word-drawer-empty-state">
-            <p>No words</p>
-            <p>Please add words to start learning</p>
+            <p>Add words to start playback</p>
+            <Button onClick={handleNavigateToEdit} appearance="primary">
+              Edit words
+            </Button>
           </div>
         </div>
       ) : (
